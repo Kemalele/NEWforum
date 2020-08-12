@@ -1,7 +1,7 @@
 package main
 
 import (
-	models "../models"
+	models "../src/models"
 	"fmt"
 	"log"
 	"net/http"
@@ -36,5 +36,5 @@ func main() {
 
 
 	fmt.Println("hi")
-	log.Fatal(http.ListenAndServe(":3030", r))
+	log.Fatal(http.ListenAndServe(":8000", r))
 }

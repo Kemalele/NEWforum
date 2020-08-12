@@ -1,7 +1,7 @@
 package main
 
 import (
-	models "../models"
+	models "../src/models"
 	"errors"
 	"net/http"
 )

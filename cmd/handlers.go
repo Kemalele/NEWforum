@@ -1,7 +1,7 @@
 package main
 
 import (
-	models "../models"
+	models "../src/models"
 	"fmt"
 	_ "github.com/satori/go.uuid"
 	uuid "github.com/satori/go.uuid"

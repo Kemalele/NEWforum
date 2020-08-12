@@ -24,7 +24,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82d709cc-42cc-4564-bdcd-695d3785d6d5" name="Default Changelist" comment="" />
+    <list default="true" id="82d709cc-42cc-4564-bdcd-695d3785d6d5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,11 +48,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1etmekSs3Fj6BYqhM2XJoQTsrDG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -58,21 +67,23 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/static" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/cmd" />
-      <recent name="$PROJECT_DIR$/pkg" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/cmd" />
       <recent name="$PROJECT_DIR$/models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/static" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/cmd" />
+      <recent name="$PROJECT_DIR$/pkg" />
     </key>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -90,7 +101,14 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="470" y="224" key="#Go_Modules" timestamp="1597223327959">
+      <screen x="0" y="23" width="1440" height="800" />
+    </state>
+    <state x="470" y="224" key="#Go_Modules/0.23.1440.800@0.23.1440.800" timestamp="1597223327959" />
     <state x="0" y="215" key="#SQL_Dialects" timestamp="1597049187857">
       <screen x="0" y="23" width="1440" height="796" />
     </state>
@@ -99,10 +117,11 @@
       <screen x="0" y="23" width="1440" height="796" />
     </state>
     <state x="180" y="23" width="1079" height="796" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.796@0.23.1440.796" timestamp="1596998190760" />
-    <state x="373" y="208" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595835264366">
-      <screen x="0" y="23" width="1440" height="796" />
+    <state x="373" y="209" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597223813777">
+      <screen x="0" y="23" width="1440" height="800" />
     </state>
     <state x="373" y="208" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.796@0.23.1440.796" timestamp="1595835264366" />
+    <state x="373" y="209" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.800@0.23.1440.800" timestamp="1597223813777" />
     <state x="149" y="23" key="SettingsEditor" timestamp="1597137490993">
       <screen x="0" y="23" width="1440" height="796" />
     </state>
