@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	router "../pkg/router"
+	"os"
 )
 
 var cache map[string]string
@@ -33,8 +34,11 @@ func main() {
 	r.Handle("POST","/registration",handleRegistration)
 	r.Handle("POST","/authentication",handleAuth)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3030"
+	}
 
-
-	fmt.Println("hi")
-	log.Fatal(http.ListenAndServe(":3030", r))
+	fmt.Printf("app is running on %s\n",port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
