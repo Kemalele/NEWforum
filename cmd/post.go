@@ -1,6 +1,6 @@
 package main
 import (
-	models "../src/models"
+	models "../models"
 	"errors"
 	"fmt"
 )

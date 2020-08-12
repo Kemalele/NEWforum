@@ -1,11 +1,12 @@
 package main
 
 import (
-	models "../src/models"
+	models "../models"
 	"fmt"
 	"log"
 	"net/http"
 	router "../pkg/router"
+	"os"
 )
 
 var cache map[string]string
@@ -36,5 +37,9 @@ func main() {
 
 
 	fmt.Println("hi")
-	log.Fatal(http.ListenAndServe(":8000", r))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = ":3030"
+	}
+	log.Fatal(http.ListenAndServe(port, r))
 }
