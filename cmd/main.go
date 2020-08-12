@@ -34,12 +34,11 @@ func main() {
 	r.Handle("POST","/registration",handleRegistration)
 	r.Handle("POST","/authentication",handleAuth)
 
-
-
-	fmt.Println("hi")
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = ":3030"
+		port = "3030"
 	}
-	log.Fatal(http.ListenAndServe(port, r))
+
+	fmt.Printf("app is running on %s\n",port)
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
