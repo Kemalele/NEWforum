@@ -1,0 +1,22 @@
+<html>
+<head></head>
+<body>
+    <div>
+        {{ .Post.Theme}}<br>
+        {{ .Post.Description}}
+    </div><br><br><br>
+    <div>
+        Comments:<br><br>
+        {{ range $comment := .Comments }}
+            {{ $comment.User.Username }} : {{ $comment.Description }}<br>
+        {{ end }}
+    </div>
+    {{ if .Authed}}
+    <form action="/post/{{ .Post.Id }}" method="POST">
+        Comment:<br>
+        <input type="text" name="text"><br>
+        <input type="submit" value="Add comment">
+    </form>
+    {{ end }}
+</body>
+</html>
