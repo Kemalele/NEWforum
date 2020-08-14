@@ -38,14 +38,23 @@ func AddPost(post Post,sql SQLDB) error {
 	return nil
 }
 
-//func GetPostById(Id string)(Post,error) {
-//	for _,post := range p.Body {
-//		if post.Id == Id {
-//			return post,nil
-//		}
-//	}
-//	return Post{},errors.New("no such user")
-//}
+func PostById(id string) (Post,error) {
+	post := Post{}
+	query := fmt.Sprintf("SELECT * FROM Post WHERE Id LIKE '%s'", id)
+	rows,err := Db.Query(query)
+	if err != nil {
+		return Post{},err
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&post.Id,&post.Description,&post.PostDate,&post.UserId,&post.Category,&post.Theme)
+		if err != nil {
+			return Post{},err
+		}
+	}
+
+	return post,nil
+}
 
 func SortedPosts(sortBy string,user User) ([]Post,error) {
 	var query string

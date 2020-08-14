@@ -30,6 +30,7 @@ func main() {
 	r.Handle("GET","/post/:id",handlePostPage)
 
 	//r.Handle("POST","/",handleMain)
+	r.Handle("POST","/post/:id",saveCommentHandler)
 	r.Handle("POST","/savePost",savepostHandler)
 	r.Handle("POST","/registration",handleRegistration)
 	r.Handle("POST","/authentication",handleAuth)

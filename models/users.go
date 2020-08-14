@@ -64,3 +64,21 @@ func UserByName(username string)(User,error) {
 
 	return usr,nil
 }
+
+func UserById(userId string)(User,error) {
+	usr := User{}
+	query := fmt.Sprintf("SELECT * FROM User WHERE Id LIKE '%s'", userId)
+	rows,err := Db.Query(query)
+	if err != nil {
+		return User{},err
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&usr.Id,&usr.Username,&usr.Password,&usr.Email,&usr.RegistrationDate)
+		if err != nil {
+			return User{},err
+		}
+	}
+
+	return usr,nil
+}
