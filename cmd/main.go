@@ -29,11 +29,12 @@ func main() {
 	r.Handle("GET","/authentication",getAuth)
 	r.Handle("GET","/post/:id",handlePostPage)
 
-	//r.Handle("POST","/",handleMain)
-	r.Handle("POST","/post/:id",saveCommentHandler)
+	r.Handle("POST","/post/:id/_method=POST",saveCommentHandler)
 	r.Handle("POST","/savePost",savepostHandler)
 	r.Handle("POST","/registration",handleRegistration)
 	r.Handle("POST","/authentication",handleAuth)
+
+	r.Handle("POST","/post/:id/_method=DELETE",deleteCommentHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
