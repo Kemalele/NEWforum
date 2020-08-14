@@ -59,45 +59,6 @@ func getMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t.Execute(w, response)
 }
 
-//func handleMain(w http.ResponseWriter,r *http.Request,params url.Values) {
-//	t,err := template.ParseFiles("../templates/index.html")
-//	if err != nil {
-//		w.WriteHeader(http.StatusInternalServerError)
-//		return
-//	}
-//	fmt.Println("post")
-//	sortBy := r.FormValue("sortBy")
-//	userName , status := authenticated(r)
-//
-//	if status != http.StatusOK{
-//		fmt.Fprintf(w,"ERROR: %v",status)
-//		return
-//	}
-//
-//	user,err := users.UserByName(userName)
-//	if err != nil {
-//		fmt.Println(err.Error())
-//		return
-//	}
-//
-//	p,err := models.SortedPosts(sortBy,user)
-//	if err != nil {
-//		fmt.Println(err.Error())
-//		return
-//	}
-//
-//	response := struct {
-//		Posts []models.Post
-//		Authed bool
-//	}{
-//		Posts: p.Body,
-//		Authed: authenticated(r),
-//	}
-//
-//	w.WriteHeader(http.StatusOK)
-//	t.Execute(w,response)
-//}
-
 func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t, err := template.ParseFiles("../templates/post.html")
 	if err != nil {
@@ -113,7 +74,13 @@ func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
-	_, authed := authenticated(r)
+	username, authed := authenticated(r)
+	user, err := models.UserByName(username)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println(err)
+		return
+	}
 
 	comments,err := models.CommentsByPostId(post.Id)
 	if err != nil {
@@ -126,12 +93,13 @@ func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 		Post models.Post
 		Authed bool
 		Comments []models.Comment
+		User models.User
 	}{
 		post,
 		authed,
 		comments,
+		user,
 	}
-
 	t.Execute(w,response)
 }
 
@@ -164,6 +132,20 @@ func saveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Value
 	models.AddComment(comment, models.Db)
 	http.Redirect(w,r,"/post/"+postId,http.StatusSeeOther)
 	return
+}
+
+func deleteCommentHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
+	postId := params.Get("id")
+	commentId := params.Get("commentId")
+
+	err := models.DeleteComment(commentId,models.Db)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println(err)
+	}
+
+	http.Redirect(w,r,"/post/"+postId,http.StatusSeeOther)
+
 }
 
 func writePost(w http.ResponseWriter, r *http.Request, params url.Values) {
