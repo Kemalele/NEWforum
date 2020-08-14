@@ -122,8 +122,6 @@ func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
-	fmt.Println(comments)
-
 	response := struct {
 		Post models.Post
 		Authed bool
@@ -164,7 +162,7 @@ func saveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Value
 	}
 
 	models.AddComment(comment, models.Db)
-	http.Redirect(w,r,"/post/"+postId,http.StatusOK)
+	http.Redirect(w,r,"/post/"+postId,http.StatusSeeOther)
 	return
 }
 
@@ -240,28 +238,28 @@ func getAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 }
 
 func handleRegistration(w http.ResponseWriter, r *http.Request, params url.Values) {
-	var user models.User
-	var err error
-	id, err := uuid.NewV4()
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, "500 Internal server error")
-		return
-	}
+		var user models.User
+		var err error
+		id, err := uuid.NewV4()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Fprintf(w, "500 Internal server error")
+			return
+		}
 
-	user.Username = r.FormValue("username")
-	user.Password = r.FormValue("password")
-	user.Email = r.FormValue("email")
-	user.Id = id.String()
-	user.RegistrationDate = time.Now().String()
+		user.Username = r.FormValue("username")
+		user.Password = r.FormValue("password")
+		user.Email = r.FormValue("email")
+		user.Id = id.String()
+		user.RegistrationDate = time.Now().String()
 
-	err = register(user)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		err = register(user)
+		if err != nil {
+			fmt.Fprintf(w, err.Error())
+			return
+		}
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
-	}
-	http.Redirect(w, r, "/", http.StatusSeeOther)
-	return
 }
 
 func getRegistration(w http.ResponseWriter, r *http.Request, params url.Values) {

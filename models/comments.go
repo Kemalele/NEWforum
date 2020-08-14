@@ -55,7 +55,7 @@ func CommentsByPostId(postId string) ([]Comment,error) {
 
 func AddComment(comment Comment,sql SQLDB) error{
 	query := "INSERT INTO COMMENT (Id,Description,Post_date,UserId,PostId) values ($1,$2,$3,$4,$5)"
-	_,err := sql.Exec(query,comment.Id,comment.Description,comment.PostDate,comment.User.Id,comment.PostId)
+	_, err := sql.Exec(query,comment.Id,comment.Description,comment.PostDate,comment.User.Id,comment.PostId)
 
 	if err != nil {
 		return err
