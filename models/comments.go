@@ -48,7 +48,7 @@ func AddComment(comment Comment,sql SQLDB) error{
 
 func DeleteComment(commentId string, sql SQLDB) error {
 
-	result, err := sql.Exec("DELETE FROM comment WHERE Id = $1", commentId)
+	_, err := sql.Exec("DELETE FROM comment WHERE Id = $1", commentId)
 	if err != nil {
 		return err
 	}
