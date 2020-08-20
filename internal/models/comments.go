@@ -36,6 +36,29 @@ func CommentsByPostId(postId string) ([]Comment, error) {
 	return comments, nil
 }
 
+func CommentById(commentId string) (Comment, error) {
+	comment := Comment{}
+	query := fmt.Sprintf("SELECT * FROM comment WHERE Id LIKE '%s'", commentId)
+	rows, err := Db.Query(query)
+	if err != nil {
+		return Comment{}, err
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&comment.Id, &comment.Description, &comment.PostDate, &comment.User.Id, &comment.PostId)
+		if err != nil {
+			return Comment{}, err
+		}
+
+		comment.User, err = UserById(comment.User.Id)
+		if err != nil {
+			return Comment{}, err
+		}
+	}
+
+	return comment, nil
+}
+
 func AddComment(comment Comment, sql SQLDB) error {
 	query := "INSERT INTO COMMENT (Id,Description,Post_date,UserId,PostId) values ($1,$2,$3,$4,$5)"
 	_, err := sql.Exec(query, comment.Id, comment.Description, comment.PostDate, comment.User.Id, comment.PostId)
@@ -47,7 +70,6 @@ func AddComment(comment Comment, sql SQLDB) error {
 }
 
 func DeleteComment(commentId string, sql SQLDB) error {
-
 	_, err := sql.Exec("DELETE FROM comment WHERE Id = $1", commentId)
 	if err != nil {
 		return err

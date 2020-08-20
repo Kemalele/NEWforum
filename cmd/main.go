@@ -10,7 +10,6 @@ import (
 	"os"
 )
 
-
 func main() {
 	err := models.Init("forum.db")
 	if err != nil {

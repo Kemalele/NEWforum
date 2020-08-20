@@ -1,34 +1,95 @@
 package models
 
-type Liked struct {
+import "fmt"
+
+type LikedPost struct {
 	Id     string
 	Value  string
-	PostId string
-	UserId string
+	Post Post
+	User User
 }
 
-func AllLikes() ([]Liked, error) {
-	var likes []Liked
-	rows, err := Db.Query("SELECT * FROM Liked")
+type LikedComment struct {
+	Id string
+	Value string
+	Comment Comment
+	User User
+}
+
+func LikedPostsByPostId(postId string) ([]LikedPost, error) {
+	var likes []LikedPost
+	query := fmt.Sprintf("SELECT * FROM likedPosts WHERE PostId LIKE '%s'", postId)
+	rows, err := Db.Query(query)
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
-		liked := Liked{}
-		err := rows.Scan(&liked.Id, &liked.Value, &liked.PostId, &liked.UserId)
+		liked := LikedPost{}
+		err := rows.Scan(&liked.Id, &liked.Value, &liked.Post.Id, &liked.User.Id)
 		if err != nil {
 			return nil, err
 		}
+
+		liked.User, err = UserById(liked.User.Id)
+		if err != nil{
+			return nil, err
+		}
+
+		liked.Post, err = PostById(liked.Post.Id)
+		if err != nil {
+			return nil, err
+		}
+
 		likes = append(likes, liked)
 	}
 	return likes, nil
 }
 
-func AddLike(liked Liked, sql SQLDB) error {
-	_, err := sql.Exec("INSERT INTO LIKED (Id,Value,PostId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.PostId, liked.UserId)
+func AddLikedPosts(liked LikedPost, sql SQLDB) error {
+	_, err := sql.Exec("INSERT INTO likedPosts (Id,Value,PostId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.Post.Id, liked.User.Id)
 	if err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func LikedCommentsByCommentId(commentId string) ([]LikedComment, error) {
+	var likes []LikedComment
+	query := fmt.Sprintf("SELECT * FROM likedComments WHERE CommentId LIKE '%s'", commentId)
+	rows, err := Db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		liked := LikedComment{}
+		err := rows.Scan(&liked.Id, &liked.Value, &liked.Comment.Id, &liked.User.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		liked.User, err = UserById(liked.User.Id)
+		if err != nil{
+			return nil, err
+		}
+
+		liked.Comment, err = CommentById(liked.Comment.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		likes = append(likes, liked)
+	}
+	return likes, nil
+}
+
+func AddLikedComments(liked LikedComment, sql SQLDB) error {
+	_, err := sql.Exec("INSERT INTO likedComments (Id,Value,PostId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.Comment.Id, liked.User.Id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

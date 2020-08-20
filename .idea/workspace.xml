@@ -25,18 +25,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82d709cc-42cc-4564-bdcd-695d3785d6d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/routes/auth_routes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/routes/comment_routes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/routes/main_route.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/routes/post_routes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/routes/register_routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/cmd" beforeDir="false" afterPath="$PROJECT_DIR$/bin/cmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/forum.db" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/forum.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/handlers.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/post.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/services/registration.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/registration.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/comments.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/comments.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/likes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/likes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
