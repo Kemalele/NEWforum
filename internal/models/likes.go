@@ -86,7 +86,7 @@ func LikedCommentsByCommentId(commentId string) ([]LikedComment, error) {
 }
 
 func AddLikedComments(liked LikedComment, sql SQLDB) error {
-	_, err := sql.Exec("INSERT INTO likedComments (Id,Value,PostId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.Comment.Id, liked.User.Id)
+	_, err := sql.Exec("INSERT INTO likedComments (Id,Value,CommentId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.Comment.Id, liked.User.Id)
 	if err != nil {
 		return err
 	}
