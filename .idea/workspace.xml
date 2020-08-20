@@ -25,8 +25,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82d709cc-42cc-4564-bdcd-695d3785d6d5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/models/likes.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/models/posts.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/models/users.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/services/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/comments.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/comments.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/cmd" beforeDir="false" afterPath="$PROJECT_DIR$/bin/cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/authentication.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/authentication.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/encryption.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/encryption.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/forum.db" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/forum.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/handlers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/post.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/post.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/registration.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/registration.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/utils.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/comments.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/comments.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/db.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/likes.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/posts.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/users.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/site_styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/internal/static/css/site_styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/readme_makeall.png" beforeDir="false" afterPath="$PROJECT_DIR$/internal/static/images/readme_makeall.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/authentication.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/authentication.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/write.html" beforeDir="false" afterPath="$PROJECT_DIR$/internal/templates/write.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,17 +97,17 @@
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal" />
+      <recent name="$PROJECT_DIR$/internal/services" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/static" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/cmd" />
       <recent name="$PROJECT_DIR$/models" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/static" />
-      <recent name="$PROJECT_DIR$/cmd" />
-      <recent name="$PROJECT_DIR$/pkg" />
     </key>
   </component>
   <component name="TypeScriptGeneratedFilesManager">

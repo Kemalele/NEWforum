@@ -1,0 +1,32 @@
+<html>
+<head></head>
+<body>
+    <div>
+        <h1>{{ .Post.Theme}}</h1>
+        <h4>{{ .Post.Description}}</h4>
+    </div>
+
+    <div class="comments">
+        Comments:<br><br>
+        {{ range $comment := .Comments }}
+            {{ $comment.User.Username }} : {{ $comment.Description }}
+            {{ if eq $.User.Id $comment.User.Id}}
+                <form  action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
+                    <input type="hidden" name= "commentId" value="{{ $comment.Id }}">
+                    <input type="submit" value="delete">
+                </form>
+            {{ else }}
+                <br><br>
+            {{ end }}
+        {{ end }}
+    </div>
+
+    {{ if .Authed}}
+    <form action="/post/{{ .Post.Id }}/_method=POST" method="POST">
+        Comment:<br>
+        <input type="text" name="text"><br>
+        <input type="submit" value="Add comment">
+    </form>
+    {{ end }}
+</body>
+</html>

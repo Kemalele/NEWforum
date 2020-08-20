@@ -1,23 +1,26 @@
 package main
+
 import (
-	models "../models"
+	models "../internal/models"
 	"errors"
 	"fmt"
 )
 
-func NewPost(post models.Post)  error {
+func NewPost(post models.Post) error {
 	err := validPost(post)
 	if err != nil {
 		return err
 	}
 
-	err = models.AddPost(post,models.Db)
-	if err != nil {return err}
+	err = models.AddPost(post, models.Db)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func validPost(p models.Post) error{
+func validPost(p models.Post) error {
 	if len(p.Theme) < 1 {
 		fmt.Println(p.Theme)
 		return errors.New("title must be at least 1 symbol")

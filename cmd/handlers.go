@@ -7,19 +7,20 @@ import (
 	"net/url"
 	"time"
 
-	models "../models"
+	models "../internal/models"
+	services "../internal/services"
 	_ "github.com/satori/go.uuid"
 	uuid "github.com/satori/go.uuid"
 )
 
 func getMain(w http.ResponseWriter, r *http.Request, params url.Values) {
-	t, err := template.ParseFiles("../templates/index.html")
+	t, err := template.ParseFiles("../internal/templates/index.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	username, authed := authenticated(r)
+	username, authed := services.Authenticated(r,cache)
 	sortBy := r.FormValue("sortBy")
 
 	response := struct {
@@ -60,21 +61,21 @@ func getMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 }
 
 func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
-	t, err := template.ParseFiles("../templates/post.html")
+	t, err := template.ParseFiles("../internal/templates/post.html")
 	if err != nil {
 		fmt.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	post,err := models.PostById(params.Get("id"))
+	post, err := models.PostById(params.Get("id"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
 		return
 	}
 
-	username, authed := authenticated(r)
+	username, authed := services.Authenticated(r,cache)
 	user, err := models.UserByName(username)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -82,7 +83,7 @@ func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
-	comments,err := models.CommentsByPostId(post.Id)
+	comments, err := models.CommentsByPostId(post.Id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
@@ -90,25 +91,25 @@ func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	response := struct {
-		Post models.Post
-		Authed bool
+		Post     models.Post
+		Authed   bool
 		Comments []models.Comment
-		User models.User
+		User     models.User
 	}{
 		post,
 		authed,
 		comments,
 		user,
 	}
-	t.Execute(w,response)
+	t.Execute(w, response)
 }
 
 func saveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
 	postId := params.Get("id")
-	username, _ := authenticated(r)
+	username, _ := services.Authenticated(r,cache)
 
-	user,err := models.UserByName(username)
-	if err != nil{
+	user, err := models.UserByName(username)
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
 		return
@@ -121,16 +122,16 @@ func saveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Value
 		return
 	}
 
-	comment := models.Comment {
-		Id: newId.String(),
+	comment := models.Comment{
+		Id:          newId.String(),
 		Description: r.FormValue("text"),
-		PostDate: time.Now().String(),
-		User: user,
-		PostId: postId,
+		PostDate:    time.Now().String(),
+		User:        user,
+		PostId:      postId,
 	}
 
 	models.AddComment(comment, models.Db)
-	http.Redirect(w,r,"/post/"+postId,http.StatusSeeOther)
+	http.Redirect(w, r, "/post/"+postId, http.StatusSeeOther)
 	return
 }
 
@@ -138,20 +139,20 @@ func deleteCommentHandler(w http.ResponseWriter, r *http.Request, params url.Val
 	postId := params.Get("id")
 	commentId := params.Get("commentId")
 
-	err := models.DeleteComment(commentId,models.Db)
+	err := models.DeleteComment(commentId, models.Db)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Println(err)
 	}
 
-	http.Redirect(w,r,"/post/"+postId,http.StatusSeeOther)
+	http.Redirect(w, r, "/post/"+postId, http.StatusSeeOther)
 
 }
 
 func writePost(w http.ResponseWriter, r *http.Request, params url.Values) {
-	t, err := template.ParseFiles("../templates/write.html")
+	t, err := template.ParseFiles("../internal/templates/write.html")
 
-	_, ok := authenticated(r)
+	_, ok := services.Authenticated(r,cache)
 	if !ok {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
 		return
@@ -168,11 +169,11 @@ func savepostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	var post models.Post
 	var err error
 
-	post.Id = GenerateId()
+	post.Id = services.GenerateId()
 	post.Description = r.FormValue("description")
 	t := time.Now()
 	post.PostDate = t.Format(time.RFC1123)
-	userid, ok := authenticated(r)
+	userid, ok := services.Authenticated(r,cache)
 	if !ok {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
 		return
@@ -192,7 +193,7 @@ func savepostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 func handleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 	username := r.FormValue("username")
 	password := r.FormValue("password")
-	err := correctUser(username, password)
+	err := services.CorrectUser(username, password)
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
 		return
@@ -210,7 +211,7 @@ func handleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 }
 
 func getAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
-	t, err := template.ParseFiles("../templates/authentication.html")
+	t, err := template.ParseFiles("../internal/templates/authentication.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprintf(w, "%v", http.StatusInternalServerError)
@@ -220,32 +221,32 @@ func getAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 }
 
 func handleRegistration(w http.ResponseWriter, r *http.Request, params url.Values) {
-		var user models.User
-		var err error
-		id, err := uuid.NewV4()
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprintf(w, "500 Internal server error")
-			return
-		}
-
-		user.Username = r.FormValue("username")
-		user.Password = r.FormValue("password")
-		user.Email = r.FormValue("email")
-		user.Id = id.String()
-		user.RegistrationDate = time.Now().String()
-
-		err = register(user)
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+	var user models.User
+	var err error
+	id, err := uuid.NewV4()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, "500 Internal server error")
 		return
+	}
+
+	user.Username = r.FormValue("username")
+	user.Password = r.FormValue("password")
+	user.Email = r.FormValue("email")
+	user.Id = id.String()
+	user.RegistrationDate = time.Now().String()
+
+	err = services.Register(user)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+	return
 }
 
 func getRegistration(w http.ResponseWriter, r *http.Request, params url.Values) {
-	t, err := template.ParseFiles("../templates/registration.html")
+	t, err := template.ParseFiles("../internal/templates/registration.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprintf(w, "500 Internal server error")
