@@ -7,7 +7,6 @@ import (
 
 
 func Register(usr models.User) error {
-
 	err := validUser(usr)
 	if err != nil {
 		return err
