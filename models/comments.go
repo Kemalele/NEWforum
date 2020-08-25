@@ -7,7 +7,7 @@ type Comment struct {
 	Description string
 	PostDate string
 	User User
-	PostId string
+	Post Post
 }
 
 func CommentsByPostId(postId string) ([]Comment,error) {
@@ -20,12 +20,17 @@ func CommentsByPostId(postId string) ([]Comment,error) {
 
 	for rows.Next() {
 		comment := Comment{}
-		err := rows.Scan(&comment.Id,&comment.Description,&comment.PostDate,&comment.User.Id,&comment.PostId)
+		err := rows.Scan(&comment.Id,&comment.Description,&comment.PostDate,&comment.User.Id,&comment.Post.Id)
 		if err != nil {
 			return nil,err
 		}
 
 		comment.User, err = UserById(comment.User.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		comment.Post, err = PostById(comment.Post.Id)
 		if err != nil {
 			return nil, err
 		}
