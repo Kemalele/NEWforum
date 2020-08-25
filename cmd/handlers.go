@@ -105,6 +105,11 @@ func handlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 
 func saveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
 	postId := params.Get("id")
+	post, err := models.PostById(postId)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	username, _ := authenticated(r)
 
 	user,err := models.UserByName(username)
@@ -126,7 +131,7 @@ func saveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Value
 		Description: r.FormValue("text"),
 		PostDate: time.Now().String(),
 		User: user,
-		PostId: postId,
+		Post: post,
 	}
 
 	models.AddComment(comment, models.Db)
