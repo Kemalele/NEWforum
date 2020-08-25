@@ -1,42 +1,43 @@
 {{ define "write" }}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link href="css/site_styles.css" rel="stylesheet">
     <style>
-        div{
+        div {
             margin: 0;
             padding: 0;
             outline: 0;
         }
-
+        
         textarea {
             resize: none;
         }
-
+        
         .header {
             height: 100px;
             background-color: #999;
         }
-
+        
         .header p {
             position: absolute;
             font-size: 48px;
             margin-left: 20%;
             margin-top: 20px;
         }
-
+        
         .auth {
             position: absolute;
             top: 20px;
             right: 10px;
         }
-
+        
         .tagPost p {
             font-size: 26px;
             text-align: center;
         }
-
+        
         .Posts {
             background-color: darkcyan;
             margin-left: auto;
@@ -45,14 +46,14 @@
             min-height: 600px;
             padding: 20px;
         }
-
+        
         .post {
             background-color: skyblue;
             display: block;
             margin-top: 40px;
             padding: 20px;
         }
-
+        
         .createPost {
             position: relative;
             margin-left: auto;
@@ -61,7 +62,7 @@
             width: 100px;
             height: 30px;
         }
-
+        
         .toCreatePost {
             background-color: blue;
             width: 100px;
@@ -71,22 +72,30 @@
     <meta charset="UTF-8">
     <title>NewPost</title>
 </head>
+
 <body>
-<div class="header">
-    <p>FORUM</p>
-</div>
-<form role="form" method="POST" action="/savePost">
-    <input type="hidden" name="id" value="id" />
-    <div class="form-group">
-        <label>Title</label>
-        <input type="text" class="form-control" id="theme" name="theme"  />
+    <div class="header">
+        <p>FORUM</p>
     </div>
-    <div class="form-group">
-        <label>Content</label>
-        <textarea id="description" name="description"></textarea>
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+    <form role="form" method="POST" action="/savePost">
+        <input type="hidden" name="id" value="id" />
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="theme" name="theme" />
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <label class="select_category" for="category">Category:</label>
+        <select name="category" id="category">
+        <option value="standard">Standard</option>
+        <option value="shadow">Shadow</option>
+        <option value="thinkertoy">Thinkertoy</option>
+    </select>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 </body>
+
 </html>
 {{end}}
