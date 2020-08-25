@@ -118,15 +118,12 @@
                         {{ $post.UserId}}
                     </div>
                 </div>
-                {{ if $.Authed }}
                 <div class="row">
                     <div class="col-xs-8">
-                        <button onclick="like( {{ $.User.Id }} )" class="fa fa-thumbs-up">123</button>
-                        <button onclick="dislike( {{ $.User.Id }})" class="fa fa-thumbs-down">0</button>
+                        <button onclick="rate('like', 'post', {{ $post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">123</button>
+                        <button onclick="rate('dislike', 'post', {{ $post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">0</button>
                     </div>
                 </div>
-                {{ end }}
-
             </div>
         {{ end }}
 
@@ -137,12 +134,19 @@
 </div>
 
 <script>
-    function like(UserId) {
-        console.log(UserId)
-    }
+    function rate(action, target, targetId, userId, authed) {
+        if (!authed) {
+            console.log("idi nahuy")
+            return
+        }
 
-    function dislike(UserId) {
-        console.log(UserId)
+        let resp = {
+            action  : action,
+            target : target,
+            targetId : targetId,
+            userId : userId,
+        }
+        console.log(JSON.stringify(resp))
     }
 </script>
 
