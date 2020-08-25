@@ -2,6 +2,7 @@
 <html>
 <head>
     <link href="css/site_styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         div{
             margin: 0;
@@ -117,6 +118,12 @@
                         {{ $post.UserId}}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <button onclick=like($.User.Id) class="fa fa-thumbs-up">123</button>
+                        <button onclick=dislike($.User.Id) class="fa fa-thumbs-down">0</button>
+                    </div>
+                </div>
             </div>
         {{ end }}
 
@@ -126,6 +133,8 @@
     </div>
 </div>
 
+<script>
+</script>
 
 </body>
 

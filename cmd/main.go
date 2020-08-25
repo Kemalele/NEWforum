@@ -16,7 +16,6 @@ func main() {
 		log.Fatal(err)
 	}
 	routes.Cache = make(map[string]string)
-
 	r := router.New(routes.GetMain)
 	r.Handle("GET", "/", routes.GetMain)
 	r.Handle("GET", "/write", routes.WritePost)

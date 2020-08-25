@@ -8,7 +8,6 @@ import (
 
 type Handle func(http.ResponseWriter, *http.Request, url.Values)
 
-// Router name says it all.
 type Router struct {
 	tree        *node
 	rootHandler Handle

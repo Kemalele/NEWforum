@@ -40,15 +40,15 @@ func (n *node) addNode(method, path string, handler Handle) {
 
 func (n *node) traverse(components []string, params url.Values) (*node, string) {
 	component := components[0]
-	if len(n.children) > 0 { // no children, then bail out.
+	if len(n.children) > 0 { 
 		for _, child := range n.children {
 			if component == child.component || child.isNamedParam {
 				if child.isNamedParam && params != nil {
 					params.Add(child.component[1:], component)
 				}
 				next := components[1:]
-				if len(next) > 0 { // http://xkcd.com/1270/
-					return child.traverse(next, params) // tail recursion is it's own reward.
+				if len(next) > 0 { 
+					return child.traverse(next, params)
 				} else {
 					return child, component
 				}
