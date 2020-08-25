@@ -22,7 +22,7 @@ func AllPosts() ([]Post, error) {
 	}
 	for rows.Next() {
 		post := Post{}
-		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Category, &post.Title)
+		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Category.Id, &post.Title)
 		if err != nil {
 			return nil, err
 		}

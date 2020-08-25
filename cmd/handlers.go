@@ -50,6 +50,7 @@ func getMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	default:
 		posts, err := models.AllPosts()
 		if err != nil {
+			fmt.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			break
 		}

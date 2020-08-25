@@ -99,7 +99,7 @@
             <div class="post">
                 <div class="row">
                     <div class="col-xs-8">
-                        <a href="/post/{{ $post.Id }}"> <h1>{{ $post.Theme }}</h1> </a>
+                        <a href="/post/{{ $post.Id }}"> <h1>{{ $post.Title }}</h1> </a>
                     </div>
                 </div>
                 <div class="row">
@@ -114,7 +114,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        {{ $post.UserId}}
+                        {{ $post.User.Id}}
                     </div>
                 </div>
             </div>
