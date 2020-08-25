@@ -20,14 +20,20 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	username, authed := services.Authenticated(r, Cache)
+	user, err := models.UserByName(username)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 	sortBy := r.FormValue("sortBy")
 
 	response := struct {
 		Posts  []models.Post
 		Authed bool
+		User models.User
 	}{
 		Posts:  nil,
 		Authed: authed,
+		User: user,
 	}
 
 	switch sortBy {

@@ -118,12 +118,15 @@
                         {{ $post.UserId}}
                     </div>
                 </div>
+                {{ if $.Authed }}
                 <div class="row">
                     <div class="col-xs-8">
-                        <button onclick=like($.User.Id) class="fa fa-thumbs-up">123</button>
-                        <button onclick=dislike($.User.Id) class="fa fa-thumbs-down">0</button>
+                        <button onclick="like( {{ $.User.Id }} )" class="fa fa-thumbs-up">123</button>
+                        <button onclick="dislike( {{ $.User.Id }})" class="fa fa-thumbs-down">0</button>
                     </div>
                 </div>
+                {{ end }}
+
             </div>
         {{ end }}
 
@@ -134,6 +137,13 @@
 </div>
 
 <script>
+    function like(UserId) {
+        console.log(UserId)
+    }
+
+    function dislike(UserId) {
+        console.log(UserId)
+    }
 </script>
 
 </body>

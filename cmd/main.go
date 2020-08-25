@@ -1,13 +1,14 @@
 package main
 
 import (
-	models "../internal/models"
-	router "../pkg/router"
-	routes "../internal/routes"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
+
+	models "../internal/models"
+	routes "../internal/routes"
+	router "../pkg/router"
 )
 
 func main() {
@@ -32,7 +33,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3030"
+		port = "8080"
 	}
 
 	fmt.Printf("app is running on %s\n", port)
