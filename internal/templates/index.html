@@ -146,7 +146,18 @@
             targetId : targetId,
             userId : userId,
         }
-        console.log(JSON.stringify(resp))
+        
+        const Http = new XMLHttpRequest()
+        const url = '/rate'
+        Http.open('POST', url)
+        Http.setRequestHeader("Content-Type", "application/json")
+        Http.send(JSON.stringify(resp))
+        Http.onreadystatechange = (e) => {
+            if (Http.readyState === 4 && Http.status === 200) {
+                console.log(Http.responseText)
+            }
+        }
+
     }
 </script>
 

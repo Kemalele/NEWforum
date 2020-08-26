@@ -28,12 +28,13 @@ func main() {
 	r.Handle("POST", "/savePost", routes.SavePostHandler)
 	r.Handle("POST", "/registration", routes.HandleRegistration)
 	r.Handle("POST", "/authentication", routes.HandleAuth)
+	r.Handle("POST", "/rate", routes.Rate)
 
 	r.Handle("POST", "/post/:id/_method=DELETE", routes.DeleteCommentHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "3030"
 	}
 
 	fmt.Printf("app is running on %s\n", port)

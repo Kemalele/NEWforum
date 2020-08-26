@@ -3,17 +3,17 @@ package models
 import "fmt"
 
 type LikedPost struct {
-	Id     string
-	Value  string
-	Post Post
-	User User
+	Id    string
+	Value string
+	Post  Post
+	User  User
 }
 
 type LikedComment struct {
-	Id string
-	Value string
+	Id      string
+	Value   string
 	Comment Comment
-	User User
+	User    User
 }
 
 func LikedPostsByPostId(postId string) ([]LikedPost, error) {
@@ -32,7 +32,7 @@ func LikedPostsByPostId(postId string) ([]LikedPost, error) {
 		}
 
 		liked.User, err = UserById(liked.User.Id)
-		if err != nil{
+		if err != nil {
 			return nil, err
 		}
 
@@ -48,6 +48,16 @@ func LikedPostsByPostId(postId string) ([]LikedPost, error) {
 
 func AddLikedPosts(liked LikedPost, sql SQLDB) error {
 	_, err := sql.Exec("INSERT INTO likedPosts (Id,Value,PostId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.Post.Id, liked.User.Id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func DeleteLikedPost(userId, postId string, sql SQLDB) error {
+	query := fmt.Sprintf("DELETE FROM likedPosts WHERE UserId LIKE '%s' AND PostId LIKE '%s'", userId, postId)
+	_, err := sql.Exec(query)
 	if err != nil {
 		return err
 	}
@@ -71,7 +81,7 @@ func LikedCommentsByCommentId(commentId string) ([]LikedComment, error) {
 		}
 
 		liked.User, err = UserById(liked.User.Id)
-		if err != nil{
+		if err != nil {
 			return nil, err
 		}
 

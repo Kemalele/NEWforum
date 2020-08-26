@@ -1,16 +1,18 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
 	"net/url"
-	"html/template"
-	services "../services"
+
 	models "../models"
+	services "../services"
+	uuid "github.com/satori/go.uuid"
 )
 
 var Cache map[string]string
-
 
 func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t, err := template.ParseFiles("../internal/templates/index.html")
@@ -29,11 +31,11 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	response := struct {
 		Posts  []models.Post
 		Authed bool
-		User models.User
+		User   models.User
 	}{
 		Posts:  nil,
 		Authed: authed,
-		User: user,
+		User:   user,
 	}
 
 	switch sortBy {
@@ -63,4 +65,71 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	t.Execute(w, response)
+}
+
+func Rate(w http.ResponseWriter, r *http.Request, params url.Values) {
+	requestBody := struct {
+		Action   string `json:"action"`
+		Target   string `json:"target"`
+		TargetID string `json:"targetId"`
+		UserID   string `json:"userId"`
+	}{}
+
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	if err != nil {
+		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if requestBody.Action != "like" && requestBody.Action != "dislike" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	newId, err := uuid.NewV4()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Println(err)
+		return
+	}
+
+	user, err := models.UserById(requestBody.UserID)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		fmt.Println(err)
+		return
+	}
+
+	switch requestBody.Target {
+	case "post":
+		models.DeleteLikedPost(requestBody.UserID, requestBody.TargetID, models.Db)
+
+		post, err := models.PostById(requestBody.TargetID)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Println(err)
+			return
+		}
+
+		rate := models.LikedPost{
+			Id:    newId.String(),
+			Value: requestBody.Action,
+			Post:  post,
+			User:  user,
+		}
+
+		err = models.AddLikedPosts(rate, models.Db)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			fmt.Println(err)
+			return
+		}
+
+	default:
+		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 }
