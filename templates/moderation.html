@@ -1,4 +1,4 @@
-{{ define "category" }}
+{{ define "moderation" }}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,22 +70,18 @@
         }
     </style>
     <meta charset="UTF-8">
-    <title>NewPost</title>
+    <title>NewCategory</title>
 </head>
 
 <body>
     <div class="header">
         <p>FORUM</p>
     </div>
-    <form role="form" method="POST" action="/saveCategory">
+    <form role="form" method="POST" action="/moderation">
         <input type="hidden" name="id" value="id" />
         <div class="form-group">
-            <label>Title</label>
-            <input type="text" class="form-control" id="theme" name="theme" />
-        </div>
-        <div class="form-group">
-            <label>Content</label>
-            <textarea id="description" name="description"></textarea>
+            <label>NewCategory</label>
+            <input type="text" class="form-control" id="category" name="category" />
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>

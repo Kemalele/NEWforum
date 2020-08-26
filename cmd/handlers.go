@@ -170,6 +170,31 @@ func writePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t.ExecuteTemplate(w, "write", nil)
 }
 
+func handleModeration(w http.ResponseWriter, r *http.Request, params url.Values) {
+	t, err := template.ParseFiles("../templates/moderation.html")
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	t.ExecuteTemplate(w, "moderation", nil)
+}
+
+func handleModerationSave(w http.ResponseWriter, r *http.Request, params url.Values) {
+	var category models.Category
+	var err error
+
+	category.Id = GenerateId()
+	category.Name = r.FormValue("category")
+
+	err = models.AddCategory(category, models.Db)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/", 302)
+}
+
 func savepostHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
 	var post models.Post
 	var err error
@@ -184,8 +209,9 @@ func savepostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 		return
 	}
 	post.User.Id = userid
-	post.Category.Id = GenerateId()
-	post.Category.Name = r.FormValue("category")
+
+	post.Category.Id = models.ValidateCategory(r.FormValue("category"))
+
 	post.Title = r.FormValue("theme")
 
 	err = NewPost(post)
