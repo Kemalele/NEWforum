@@ -5,6 +5,12 @@ import (
 	"fmt"
 )
 
+type PostDTO struct {
+	Post     Post
+	Likes    int
+	Dislikes int
+}
+
 type Post struct {
 	Id          string
 	Description string
@@ -14,9 +20,9 @@ type Post struct {
 	Theme       string
 }
 
-func AllPosts() ([]Post, error) {
+func AllPosts() ([]PostDTO, error) {
 	rows, err := Db.Query("SELECT * FROM Post")
-	var posts []Post
+	var posts []PostDTO
 	if err != nil {
 		return nil, err
 	}

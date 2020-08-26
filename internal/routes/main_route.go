@@ -22,14 +22,16 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	username, authed := services.Authenticated(r, Cache)
+
 	user, err := models.UserByName(username)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
+
 	sortBy := r.FormValue("sortBy")
 
 	response := struct {
-		Posts  []models.Post
+		Posts  []models.PostDTO
 		Authed bool
 		User   models.User
 	}{
@@ -59,15 +61,25 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 		posts, err := models.AllPosts()
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
-			break
+			return
 		}
 		response.Posts = posts
 	}
+
+	likes, err := postsLikes(response.Posts)
+	if err != nil {
+		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	response.Likes = likes
 
 	t.Execute(w, response)
 }
 
 func Rate(w http.ResponseWriter, r *http.Request, params url.Values) {
+
 	requestBody := struct {
 		Action   string `json:"action"`
 		Target   string `json:"target"`
@@ -132,4 +144,19 @@ func Rate(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
+}
+
+func postsLikes(posts []models.Post) ([]int, error) {
+	var likes []int
+	var dislikes []int
+	for _, post := range posts {
+		res, err := models.LikedPostCount(post.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		likes = append(likes, res)
+	}
+
+	return likes, nil
 }

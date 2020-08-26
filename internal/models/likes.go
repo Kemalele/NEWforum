@@ -46,6 +46,18 @@ func LikedPostsByPostId(postId string) ([]LikedPost, error) {
 	return likes, nil
 }
 
+func LikedPostCount(postId string) (int, error) {
+	var likes int
+	query := fmt.Sprintf("SELECT COUNT(*) FROM likedPosts WHERE PostId LIKE '%s'", postId)
+	err := Db.QueryRow(query).Scan(likes)
+	if err != nil {
+		return 0, err
+	}
+
+	return likes, nil
+
+}
+
 func AddLikedPosts(liked LikedPost, sql SQLDB) error {
 	_, err := sql.Exec("INSERT INTO likedPosts (Id,Value,PostId,UserId) values ($1,$2,$3,$4)", liked.Id, liked.Value, liked.Post.Id, liked.User.Id)
 	if err != nil {
