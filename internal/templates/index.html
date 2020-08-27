@@ -96,32 +96,32 @@
 
 <div class="Posts">
     <div class="tagPost"><p>Posts</p></div>
-        {{ range $post := .Posts }}
+        {{ range $postLike := .Posts }}
             <div class="post">
                 <div class="row">
                     <div class="col-xs-8">
-                        <a href="/post/{{ $post.Id }}"> <h1>{{ $post.Theme }}</h1> </a>
+                        <a href="/post/{{ $postLike.Post.Id }}"> <h1>{{ $postLike.Post.Theme }}</h1> </a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        {{ $post.Description }}
+                        {{ $postLike.Post.Description }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        {{ $post.PostDate }}
+                        {{ $postLike.Post.PostDate }}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        {{ $post.UserId}}
+                        {{ $postLike.Post.UserId}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <button onclick="rate('like', 'post', {{ $post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up"></button>
-                        <button onclick="rate('dislike', 'post', {{ $post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">0</button>
+                        <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
+                        <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
                     </div>
                 </div>
             </div>

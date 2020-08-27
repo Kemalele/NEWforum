@@ -46,10 +46,10 @@ func LikedPostsByPostId(postId string) ([]LikedPost, error) {
 	return likes, nil
 }
 
-func LikedPostCount(postId string) (int, error) {
+func LikedPostCount(postId, action string) (int, error) {
 	var likes int
-	query := fmt.Sprintf("SELECT COUNT(*) FROM likedPosts WHERE PostId LIKE '%s'", postId)
-	err := Db.QueryRow(query).Scan(likes)
+	query := fmt.Sprintf("SELECT COUNT(*) FROM likedPosts WHERE PostId LIKE '%s' AND Value LIKE '%s'", postId, action)
+	err := Db.QueryRow(query).Scan(&likes)
 	if err != nil {
 		return 0, err
 	}

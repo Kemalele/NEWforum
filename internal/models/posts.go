@@ -22,7 +22,7 @@ type Post struct {
 
 func AllPosts() ([]PostDTO, error) {
 	rows, err := Db.Query("SELECT * FROM Post")
-	var posts []PostDTO
+	var postsLikes []PostDTO
 	if err != nil {
 		return nil, err
 	}
@@ -32,9 +32,19 @@ func AllPosts() ([]PostDTO, error) {
 		if err != nil {
 			return nil, err
 		}
-		posts = append(posts, post)
+		likes, err := LikedPostCount(post.Id, "like")
+		if err != nil {
+			return nil, err
+		}
+
+		dislikes, err := LikedPostCount(post.Id, "dislike")
+		if err != nil {
+			return nil, err
+		}
+
+		postsLikes = append(postsLikes, PostDTO{Post: post, Likes: likes, Dislikes: dislikes})
 	}
-	return posts, nil
+	return postsLikes, nil
 }
 
 func AddPost(post Post, sql SQLDB) error {
@@ -63,14 +73,14 @@ func PostById(id string) (Post, error) {
 	return post, nil
 }
 
-func SortedPosts(sortBy string, user User) ([]Post, error) {
+func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 	var query string
-	var posts []Post
+	var postsLikes []PostDTO
 
 	if sortBy == "created" {
 		query = fmt.Sprintf("SELECT * FROM POST ORDER BY CASE userid WHEN '%s' THEN 1 ELSE 2 END;", user.Username)
 	} else {
-		return posts, errors.New("no such parameter to sort")
+		return postsLikes, errors.New("no such parameter to sort")
 	}
 
 	rows, err := Db.Query(query)
@@ -84,8 +94,18 @@ func SortedPosts(sortBy string, user User) ([]Post, error) {
 		if err != nil {
 			return nil, err
 		}
-		posts = append(posts, post)
+		likes, err := LikedPostCount(post.Id, "like")
+		if err != nil {
+			return nil, err
+		}
+
+		dislikes, err := LikedPostCount(post.Id, "dislike")
+		if err != nil {
+			return nil, err
+		}
+
+		postsLikes = append(postsLikes, PostDTO{Post: post, Likes: likes, Dislikes: dislikes})
 	}
 
-	return posts, nil
+	return postsLikes, nil
 }
