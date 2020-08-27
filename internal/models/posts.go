@@ -114,7 +114,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
 			return nil, err
-		}	``
+		}
 
 		likes, err := LikedPostCount(post.Id, "like")
 		if err != nil {
