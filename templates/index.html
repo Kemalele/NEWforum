@@ -54,10 +54,10 @@
         }
         
         .createPost {
-            position: relative;
+            position: center;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 100px;
+            margin-top: 0px;
             width: 100px;
             height: 30px;
         }
@@ -73,7 +73,6 @@
 <body>
     <div class="header">
         <p>FORUM</p>
-
         <div class="auth">
             <a href="registration">Registation</a><br>
             <a href="authentication">Auth</a>
@@ -81,7 +80,6 @@
         </div>
 
     </div>
-
     <div class="Filters">
         <h3>Sort by: </h3>
         <form action="/?sortBy=" method="GET">
@@ -98,6 +96,9 @@
     <div class="Posts">
         <div class="tagPost">
             <p>Posts</p>
+        </div>
+        <div class="createPost">
+            <a href="write">CreatePost</a>
         </div>
         {{ range $post := .Posts }}
         <div class="post">
@@ -130,11 +131,6 @@
             </div>
         </div>
         {{ end }}
-
-
-        <div class="createPost">
-            <a href="write">CreatePost</a>
-        </div>
     </div>
 
 

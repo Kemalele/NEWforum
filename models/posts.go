@@ -40,6 +40,15 @@ func AddPost(post Post, sql SQLDB) error {
 	return nil
 }
 
+// func DeletePost(postId string, sql SQLDB) error {
+
+// 	_, err := sql.Exec("DELETE FROM comment WHERE Id = $1", postId)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
+
 func PostById(id string) (Post, error) {
 	post := Post{}
 	query := fmt.Sprintf("SELECT * FROM Post WHERE Id LIKE '%s'", id)

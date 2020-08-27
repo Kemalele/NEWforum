@@ -186,7 +186,7 @@ func handleModerationSave(w http.ResponseWriter, r *http.Request, params url.Val
 
 	category.Id = GenerateId()
 	category.Name = r.FormValue("category")
-
+	fmt.Println("Add ?")
 	err = models.AddCategory(category, models.Db)
 	if err != nil {
 		fmt.Fprintf(w, err.Error())
