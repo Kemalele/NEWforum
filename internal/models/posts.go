@@ -32,11 +32,15 @@ func AllPosts() ([]PostDTO, error) {
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println("-----------------------------------------------")
 
+		fmt.Println(post.Category.Id)
 		post.Category, err = CategoryById(post.Category.Id)
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println(post.Category)
+		fmt.Println("-----------------------------------------------")
 
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
@@ -79,9 +83,23 @@ func PostById(id string) (Post, error) {
 		if err != nil {
 			return Post{}, err
 		}
+
+		post.User, err = UserById(post.User.Id)
+		if err != nil {
+			return Post{}, err
+		}
+
+		post.Category, err = CategoryById(post.Category.Id)
+		if err != nil {
+			return Post{}, err
+		}
 	}
 
 	return post, nil
+}
+
+func PostDTObyId(id string) {
+
 }
 
 func SortedPosts(sortBy string, user User) ([]PostDTO, error) {

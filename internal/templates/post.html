@@ -86,13 +86,18 @@
     </div>
 
     <div class="comments">
-        Comments:<br><br> {{ range $comment := .Comments }} {{ $comment.User.Username }} : {{ $comment.Description }} {{ if eq $.User.Id $comment.User.Id}}
+        Comments:<br><br> 
+        {{ range $comment := .Comments }} 
+        {{ $comment.User.Username }} : {{ $comment.Description }}
+        
+        {{ if eq $.User.Id $comment.User.Id}}
         <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
             <input type="hidden" name="commentId" value="{{ $comment.Id }}">
             <input type="submit" value="delete">
         </form>
         {{ else }}
-        <br><br> {{ end }} {{ end }}
+        <br><br> {{ end }} 
+        {{ end }}
     </div>
 
     {{ if .Authed}}

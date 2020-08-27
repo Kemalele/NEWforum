@@ -71,7 +71,6 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 		}
 		response.Posts = posts
 	}
-
 	err = t.Execute(w, response)
 	if err != nil {
 		fmt.Println(err.Error())

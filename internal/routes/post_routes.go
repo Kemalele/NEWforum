@@ -93,7 +93,6 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	}
 
 	post.User.Id = user.Id
-	fmt.Println(user.Id)
 	post.Category.Id = models.ValidateCategory(r.FormValue("category"))
 	post.Title = r.FormValue("theme")
 
