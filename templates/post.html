@@ -1,24 +1,98 @@
 <html>
-<head></head>
+
+<head>
+
+    <link href="css/site_styles.css" rel="stylesheet">
+    <style>
+        div {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+        }
+        
+        textarea {
+            resize: none;
+        }
+        
+        .header {
+            height: 100px;
+            background-color: #999;
+        }
+        
+        .header p {
+            position: absolute;
+            font-size: 48px;
+            margin-left: 20%;
+            margin-top: 20px;
+        }
+        
+        .auth {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+        }
+        
+        .tagPost p {
+            font-size: 26px;
+            text-align: center;
+        }
+        
+        .Posts {
+            background-color: darkcyan;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+            min-height: 600px;
+            padding: 20px;
+        }
+        
+        .post {
+            background-color: skyblue;
+            display: block;
+            margin-top: 40px;
+            padding: 20px;
+        }
+        
+        .createPost {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            width: 100px;
+            height: 30px;
+        }
+        
+        .toCreatePost {
+            background-color: blue;
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+
 <body>
+    <div class="header">
+        <p>FORUM</p>
+        <div class="auth">
+            <a href="registration">Registation</a><br>
+            <a href="authentication">Auth</a>
+            <a href="name"></a>
+        </div>
+
+    </div>
     <div>
-        <h1>{{ .Post.Theme}}</h1>
+        <h1>{{ .Post.Title}}</h1>
         <h4>{{ .Post.Description}}</h4>
     </div>
 
     <div class="comments">
-        Comments:<br><br>
-        {{ range $comment := .Comments }}
-            {{ $comment.User.Username }} : {{ $comment.Description }}
-            {{ if eq $.User.Id $comment.User.Id}}
-                <form  action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
-                    <input type="hidden" name= "commentId" value="{{ $comment.Id }}">
-                    <input type="submit" value="delete">
-                </form>
-            {{ else }}
-                <br><br>
-            {{ end }}
-        {{ end }}
+        Comments:<br><br> {{ range $comment := .Comments }} {{ $comment.User.Username }} : {{ $comment.Description }} {{ if eq $.User.Id $comment.User.Id}}
+        <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
+            <input type="hidden" name="commentId" value="{{ $comment.Id }}">
+            <input type="submit" value="delete">
+        </form>
+        {{ else }}
+        <br><br> {{ end }} {{ end }}
     </div>
 
     {{ if .Authed}}
@@ -29,4 +103,5 @@
     </form>
     {{ end }}
 </body>
+
 </html>
