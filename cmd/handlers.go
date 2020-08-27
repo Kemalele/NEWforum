@@ -189,9 +189,11 @@ func handleModerationSave(w http.ResponseWriter, r *http.Request, params url.Val
 	fmt.Println("Add ?")
 	err = models.AddCategory(category, models.Db)
 	if err != nil {
+		fmt.Println(err.Error())
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	fmt.Println(models.CategoryById(category.Id))
 	http.Redirect(w, r, "/", 302)
 }
 

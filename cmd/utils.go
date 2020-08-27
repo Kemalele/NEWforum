@@ -2,10 +2,13 @@ package main
 
 import (
 	"crypto/rand"
-	"fmt"
+
+	uuid "github.com/satori/go.uuid"
 )
-func GenerateId() string{
-	b:= make([]byte,16)
+
+func GenerateId() string {
+	b := make([]byte, 16)
 	rand.Read(b)
-	return fmt.Sprintf("%x",b)
+	newId, _ := uuid.NewV4()
+	return newId.String()
 }
