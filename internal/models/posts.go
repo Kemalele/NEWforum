@@ -89,7 +89,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 	var postsLikes []PostDTO
 
 	if sortBy == "created" {
-		query = fmt.Sprintf("SELECT * FROM POST ORDER BY CASE userid WHEN '%s' THEN 1 ELSE 2 END;", user.Username)
+		query = fmt.Sprintf("SELECT * FROM POST ORDER BY CASE UserId WHEN '%s' THEN 1 ELSE 2 END;", user.Id)
 	} else {
 		return postsLikes, errors.New("no such parameter to sort")
 	}
@@ -114,7 +114,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
 			return nil, err
-		}
+		}	``
 
 		likes, err := LikedPostCount(post.Id, "like")
 		if err != nil {
