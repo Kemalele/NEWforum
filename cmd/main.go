@@ -6,39 +6,34 @@ import (
 	"net/http"
 	"os"
 
-	models "../models"
+	models "../internal/models"
+	routes "../internal/routes"
 	router "../pkg/router"
 )
-
-var cache map[string]string
 
 func main() {
 	err := models.Init("forum.db")
 	if err != nil {
 		log.Fatal(err)
 	}
-	cache = make(map[string]string)
+	routes.Cache = make(map[string]string)
+	r := router.New(routes.GetMain)
+	r.Handle("GET", "/", routes.GetMain)
+	r.Handle("GET", "/write", routes.WritePost)
+	r.Handle("GET", "/registration", routes.GetRegistration)
+	r.Handle("GET", "/authentication", routes.GetAuth)
+	r.Handle("GET", "/post/:id", routes.HandlePostPage)
 
-	//css/
-	//css := http.FileServer(http.Dir("css"))
-	//http.Handle("/css/", http.StripPrefix("/css/", css))
+	r.Handle("POST", "/post/:id/_method=POST", routes.SaveCommentHandler)
+	r.Handle("POST", "/savePost", routes.SavePostHandler)
+	r.Handle("POST", "/registration", routes.HandleRegistration)
+	r.Handle("POST", "/authentication", routes.HandleAuth)
+	r.Handle("POST", "/rate", routes.Rate)
 
-	r := router.New(getMain)
-	r.Handle("GET", "/", getMain)
-	r.Handle("GET", "/write", writePost)
-	r.Handle("GET", "/registration", getRegistration)
-	r.Handle("GET", "/authentication", getAuth)
-	r.Handle("GET", "/post/:id", handlePostPage)
+	r.Handle("POST", "/post/:id/_method=DELETE", routes.DeleteCommentHandler)
 
-	r.Handle("POST", "/post/:id/_method=POST", saveCommentHandler)
-	r.Handle("POST", "/savePost", savepostHandler)
-	r.Handle("POST", "/registration", handleRegistration)
-	r.Handle("POST", "/authentication", handleAuth)
-
-	r.Handle("POST", "/post/:id/_method=DELETE", deleteCommentHandler)
-
-	r.Handle("GET", "/moderation", handleModeration)
-	r.Handle("POST", "/moderationSave", handleModerationSave)
+	r.Handle("GET", "/moderation", routes.HandleModeration)
+	r.Handle("POST", "/moderationSave", routes.HandleModerationSave)
 
 	port := os.Getenv("PORT")
 	if port == "" {
