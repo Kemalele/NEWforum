@@ -37,7 +37,6 @@ func AllPosts() ([]PostDTO, error) {
 		if err != nil {
 			return nil, err
 		}
-
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
 			return nil, err

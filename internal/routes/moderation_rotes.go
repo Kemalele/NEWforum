@@ -11,7 +11,7 @@ import (
 )
 
 func HandleModeration(w http.ResponseWriter, r *http.Request, params url.Values) {
-	t, err := template.ParseFiles("../templates/moderation.html")
+	t, err := template.ParseFiles("../internal/templates/moderation.html")
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

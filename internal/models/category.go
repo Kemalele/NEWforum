@@ -53,9 +53,9 @@ func CategoryById(Id string) (Category, error) {
 	return category, nil
 }
 
-func ValidateCategory(name string) string {
+func ValidateCategory(name string) (string, error) {
 	category := Category{}
-	query := fmt.Sprintf("SELECT * FROM Category WHERE Id LIKE '%s'", name)
+	query := fmt.Sprintf("SELECT * FROM Category WHERE Name LIKE '%s'", name)
 	rows, err := Db.Query(query)
 	if err != nil {
 		fmt.Println(err)
@@ -68,11 +68,9 @@ func ValidateCategory(name string) string {
 		}
 	}
 
-	fmt.Println("-----------------------------", category)
-	if name == category.Name {
-		return category.Id
-	} else {
-		return "wrong name of category"
+	fmt.Println("-----------------------------")
+	if name != category.Name {
+		return "", err
 	}
-
+	return category.Id, nil
 }
