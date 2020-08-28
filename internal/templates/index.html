@@ -94,76 +94,80 @@
         </form>
     </div>
 
-<div class="Posts">
-    <div class="createPost">
-        <a href="write">CreatePost</a>
-    </div>
-    <div class="tagPost"><p>Posts</p></div>
+    <div class="Posts">
+        <div class="createPost">
+            <a href="write">CreatePost</a>
+        </div>
+        <div class="tagPost">
+            <p>Posts</p>
+        </div>
         {{ range $postLike := .Posts }}
-            <div class="post">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <a href="/post/{{ $postLike.Post.Id }}"> <h1>{{ $postLike.Post.Title }}</h1> </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        {{ $postLike.Post.Description }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        {{ $postLike.Post.PostDate }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        {{ $postLike.Post.Category.Name}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        {{ $postLike.Post.User.Username}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
-                        <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
-                    </div>
+        <div class="post">
+            <div class="row">
+                <div class="col-xs-8">
+                    <a href="/post/{{ $postLike.Post.Id }}">
+                        <h1>{{ $postLike.Post.Title }}</h1>
+                    </a>
                 </div>
             </div>
-            {{ end }}
+            <div class="row">
+                <div class="col-xs-8">
+                    {{ $postLike.Post.Description }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    {{ $postLike.Post.PostDate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    {{ $postLike.Post.Category.Name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    {{ $postLike.Post.User.Username}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
+                    <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
+                </div>
+            </div>
         </div>
+        {{ end }}
+    </div>
     </div>
 
-<script>
-    function rate(action, target, targetId, userId, authed) {
-        if (!authed) {
-            console.log("idi nahuy")
-            return
-        }
-
-        let resp = {
-            action  : action,
-            target : target,
-            targetId : targetId,
-            userId : userId,
-        }
-        
-        const Http = new XMLHttpRequest()
-        const url = '/rate'
-        Http.open('POST', url)
-        Http.setRequestHeader("Content-Type", "application/json")
-        Http.send(JSON.stringify(resp))
-        Http.onreadystatechange = (e) => {
-            if (Http.readyState === 4 && Http.status === 200) {
-                console.log(Http.responseText)
+    <script>
+        function rate(action, target, targetId, userId, authed) {
+            if (!authed) {
+                console.log("idi nahuy")
+                return
             }
-        }
 
-    }
-</script>
+            let resp = {
+                action: action,
+                target: target,
+                targetId: targetId,
+                userId: userId,
+            }
+
+            const Http = new XMLHttpRequest()
+            const url = '/rate'
+            Http.open('POST', url)
+            Http.setRequestHeader("Content-Type", "application/json")
+            Http.send(JSON.stringify(resp))
+            Http.onreadystatechange = (e) => {
+                if (Http.readyState === 4 && Http.status === 200) {
+                    console.log(Http.responseText)
+                }
+            }
+
+        }
+    </script>
 
 </body>
 
