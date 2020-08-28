@@ -39,12 +39,6 @@ func AllPosts() ([]PostDTO, error) {
 		if err != nil {
 			return nil, err
 		}
-<<<<<<< HEAD
-=======
-		fmt.Println(post.Category)
-		fmt.Println("-----------------------------------------------")
-
->>>>>>> likes0.2
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
 			return nil, err
