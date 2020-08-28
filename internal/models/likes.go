@@ -77,6 +77,27 @@ func DeleteLikedPost(userId, postId string, sql SQLDB) error {
 	return nil
 }
 
+func DeleteLikedComment(userId, commentId string, sql SQLDB) error {
+	query := fmt.Sprintf("DELETE FROM likedComments WHERE UserId LIKE '%s' AND CommentId LIKE '%s'", userId, commentId)
+	_, err := sql.Exec(query)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func LikedCommentCount(commentId, action string) (int, error) {
+	var likes int
+	query := fmt.Sprintf("SELECT COUNT(*) FROM likedComments WHERE CommentId LIKE '%s' AND Value LIKE '%s'", commentId, action)
+	err := Db.QueryRow(query).Scan(&likes)
+	if err != nil {
+		return 0, err
+	}
+
+	return likes, nil
+}
+
 func LikedCommentsByCommentId(commentId string) ([]LikedComment, error) {
 	var likes []LikedComment
 	query := fmt.Sprintf("SELECT * FROM likedComments WHERE CommentId LIKE '%s'", commentId)

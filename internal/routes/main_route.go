@@ -71,7 +71,6 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 		}
 		response.Posts = posts
 	}
-
 	err = t.Execute(w, response)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -134,6 +133,30 @@ func Rate(w http.ResponseWriter, r *http.Request, params url.Values) {
 		}
 
 		err = models.AddLikedPosts(rate, models.Db)
+		if err != nil {
+			fmt.Println(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+	case "comment":
+		models.DeleteLikedComment(requestBody.UserID, requestBody.TargetID, models.Db)
+
+		comment, err := models.CommentById(requestBody.TargetID)
+		if err != nil {
+			fmt.Println(err.Error())
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		rate := models.LikedComment{
+			Id:      newId.String(),
+			Value:   requestBody.Action,
+			Comment: comment,
+			User:    user,
+		}
+
+		err = models.AddLikedComments(rate, models.Db)
 		if err != nil {
 			fmt.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)

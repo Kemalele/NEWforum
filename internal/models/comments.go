@@ -2,6 +2,12 @@ package models
 
 import "fmt"
 
+type CommentDTO struct {
+	Comment  Comment
+	Likes    int
+	Dislikes int
+}
+
 type Comment struct {
 	Id          string
 	Description string
@@ -10,8 +16,8 @@ type Comment struct {
 	Post        Post
 }
 
-func CommentsByPostId(postId string) ([]Comment, error) {
-	var comments []Comment
+func CommentsByPostId(postId string) ([]CommentDTO, error) {
+	var comments []CommentDTO
 	query := fmt.Sprintf("SELECT * FROM comment WHERE PostId LIKE '%s'", postId)
 	rows, err := Db.Query(query)
 	if err != nil {
@@ -22,20 +28,35 @@ func CommentsByPostId(postId string) ([]Comment, error) {
 		comment := Comment{}
 		err := rows.Scan(&comment.Id, &comment.Description, &comment.PostDate, &comment.User.Id, &comment.Post.Id)
 		if err != nil {
+			fmt.Println(err.Error())
 			return nil, err
 		}
 
 		comment.User, err = UserById(comment.User.Id)
 		if err != nil {
+			fmt.Println(err.Error())
 			return nil, err
 		}
 
 		comment.Post, err = PostById(comment.Post.Id)
 		if err != nil {
+			fmt.Println(err.Error())
 			return nil, err
 		}
 
-		comments = append(comments, comment)
+		likes, err := LikedCommentCount(comment.Id, "like")
+		if err != nil {
+			fmt.Println(err.Error())
+			return nil, err
+		}
+
+		dislikes, err := LikedCommentCount(comment.Id, "dislike")
+		if err != nil {
+			fmt.Println(err.Error())
+			return nil, err
+		}
+
+		comments = append(comments, CommentDTO{Comment: comment, Likes: likes, Dislikes: dislikes})
 	}
 
 	return comments, nil

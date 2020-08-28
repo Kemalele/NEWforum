@@ -32,11 +32,19 @@ func AllPosts() ([]PostDTO, error) {
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println("-----------------------------------------------")
 
+		fmt.Println(post.Category.Id)
 		post.Category, err = CategoryById(post.Category.Id)
 		if err != nil {
 			return nil, err
 		}
+<<<<<<< HEAD
+=======
+		fmt.Println(post.Category)
+		fmt.Println("-----------------------------------------------")
+
+>>>>>>> likes0.2
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
 			return nil, err
@@ -78,9 +86,23 @@ func PostById(id string) (Post, error) {
 		if err != nil {
 			return Post{}, err
 		}
+
+		post.User, err = UserById(post.User.Id)
+		if err != nil {
+			return Post{}, err
+		}
+
+		post.Category, err = CategoryById(post.Category.Id)
+		if err != nil {
+			return Post{}, err
+		}
 	}
 
 	return post, nil
+}
+
+func PostDTObyId(id string) {
+
 }
 
 func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
@@ -88,7 +110,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 	var postsLikes []PostDTO
 
 	if sortBy == "created" {
-		query = fmt.Sprintf("SELECT * FROM POST ORDER BY CASE userid WHEN '%s' THEN 1 ELSE 2 END;", user.Username)
+		query = fmt.Sprintf("SELECT * FROM POST ORDER BY CASE UserId WHEN '%s' THEN 1 ELSE 2 END;", user.Id)
 	} else {
 		return postsLikes, errors.New("no such parameter to sort")
 	}

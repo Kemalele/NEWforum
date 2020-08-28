@@ -41,15 +41,18 @@ func CategoryById(Id string) (Category, error) {
 	query := fmt.Sprintf("SELECT * FROM Category WHERE Id LIKE '%s'", Id)
 	rows, err := Db.Query(query)
 	if err != nil {
+		fmt.Println(err.Error())
 		return Category{}, err
 	}
 
 	for rows.Next() {
 		err := rows.Scan(&category.Id, &category.Name)
 		if err != nil {
+			fmt.Println(err.Error())
 			return Category{}, err
 		}
 	}
+
 	return category, nil
 }
 
@@ -73,4 +76,21 @@ func ValidateCategory(name string) (string, error) {
 		return "", err
 	}
 	return category.Id, nil
+}
+
+func AllCategories() error {
+	rows, err := Db.Query("SELECT * FROM Category")
+	if err != nil {
+		return err
+	}
+	for rows.Next() {
+		category := Category{}
+		err := rows.Scan(&category.Id, &category.Name)
+		if err != nil {
+			return err
+		}
+		fmt.Println(category)
+
+	}
+	return nil
 }
