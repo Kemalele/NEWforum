@@ -3,6 +3,8 @@
 <head>
 
     <link href="css/site_styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         div {
             margin: 0;
@@ -87,12 +89,14 @@
 
     <div class="comments">
         Comments:<br><br> 
-        {{ range $comment := .Comments }} 
-        {{ $comment.User.Username }} : {{ $comment.Description }}
-        
-        {{ if eq $.User.Id $comment.User.Id}}
+        {{ range $commentLikes := .Comments }} 
+        {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
+        <button onclick="rate('like', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $commentLikes.Likes }}</button>
+        <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button>
+        {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
+        <br>
         <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
-            <input type="hidden" name="commentId" value="{{ $comment.Id }}">
+            <input type="hidden" name="commentId" value="{{ $commentLikes.Comment.Id }}">
             <input type="submit" value="delete">
         </form>
         {{ else }}
@@ -108,5 +112,31 @@
     </form>
     {{ end }}
 </body>
+<script>
+    function rate(action, target, targetId, userId, authed) {
+        if (!authed) {
+            console.log("idi nahuy")
+            return
+        }
 
+        let resp = {
+            action  : action,
+            target : target,
+            targetId : targetId,
+            userId : userId,
+        }
+        
+        const Http = new XMLHttpRequest()
+        const url = '/rate'
+        Http.open('POST', url)
+        Http.setRequestHeader("Content-Type", "application/json")
+        Http.send(JSON.stringify(resp))
+        Http.onreadystatechange = (e) => {
+            if (Http.readyState === 4 && Http.status === 200) {
+                console.log(Http.responseText)
+            }
+        }
+
+    }
+</script>
 </html>

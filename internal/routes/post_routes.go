@@ -44,7 +44,7 @@ func HandlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 	response := struct {
 		Post     models.Post
 		Authed   bool
-		Comments []models.Comment
+		Comments []models.CommentDTO
 		User     models.User
 	}{
 		post,
