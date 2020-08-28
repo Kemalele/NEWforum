@@ -44,7 +44,7 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	switch sortBy {
-	case "created":
+	case "created", "liked":
 		if authed {
 			user, err := models.UserByName(username)
 			if err != nil {
@@ -59,9 +59,11 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 				w.WriteHeader(http.StatusInternalServerError)
 				break
 			}
-
 			response.Posts = posts
+			fmt.Println("here")
+
 		}
+
 	default:
 		posts, err := models.AllPosts()
 		if err != nil {

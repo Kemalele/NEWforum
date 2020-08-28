@@ -78,6 +78,7 @@
             <a href="registration">Registation</a><br>
             <a href="authentication">Auth</a>
             <a href="name"></a>
+            <a>Log ou</a>
         </div>
 
     </div>
@@ -86,9 +87,9 @@
         <form action="/?sortBy=" method="GET">
             <select name="sortBy">
             {{if .Authed}}
-            <option value="created">Created posts</option>
+            <option value="created">Created</option>
+            <option value="liked">Liked</option>
             {{ end }}
-            <option value="empty">Empty</option>
         </select>
             <input type="submit" value="Submit">
         </form>
