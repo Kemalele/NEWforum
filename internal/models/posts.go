@@ -7,6 +7,7 @@ import (
 
 type PostDTO struct {
 	Post     Post
+	Categories []Category
 	Likes    int
 	Dislikes int
 }
@@ -27,10 +28,12 @@ func AllPosts() ([]PostDTO, error) {
 	}
 	for rows.Next() {
 		post := Post{}
+
 		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Title)
 		if err != nil {
 			return nil, err
 		}
+
 		post.User, err = UserById(post.User.Id)
 		if err != nil {
 			return nil, err
@@ -46,7 +49,12 @@ func AllPosts() ([]PostDTO, error) {
 			return nil, err
 		}
 
-		postsLikes = append(postsLikes, PostDTO{Post: post, Likes: likes, Dislikes: dislikes})
+		categories, err := CategoriesByPostId(post.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		postsLikes = append(postsLikes, PostDTO{Post: post,Categories: categories, Likes: likes, Dislikes: dislikes})
 	}
 	return postsLikes, nil
 }
@@ -122,7 +130,12 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 			return nil, err
 		}
 
-		postsLikes = append(postsLikes, PostDTO{Post: post, Likes: likes, Dislikes: dislikes})
+		categories, err := CategoriesByPostId(post.Id)
+		if err != nil {
+			return nil, err
+		}
+
+		postsLikes = append(postsLikes, PostDTO{Post: post, Categories: categories, Likes: likes, Dislikes: dislikes})
 	}
 
 	return postsLikes, nil
