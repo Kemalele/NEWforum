@@ -93,13 +93,6 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	}
 
 	post.User.Id = user.Id
-	fmt.Println(user.Id)
-	post.Category.Id, err = models.ValidateCategory(r.FormValue("category"))
-	if err != nil {
-		fmt.Println(err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
 	post.Title = r.FormValue("theme")
 
 	err = services.NewPost(post)

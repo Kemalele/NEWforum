@@ -16,7 +16,6 @@ type Post struct {
 	Description string
 	PostDate    string
 	User        User
-	Category    Category
 	Title       string
 }
 
@@ -28,11 +27,7 @@ func AllPosts() ([]PostDTO, error) {
 	}
 	for rows.Next() {
 		post := Post{}
-		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Category.Id, &post.Title)
-		if err != nil {
-			return nil, err
-		}
-		post.Category, err = CategoryById(post.Category.Id)
+		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Title)
 		if err != nil {
 			return nil, err
 		}
@@ -57,7 +52,7 @@ func AllPosts() ([]PostDTO, error) {
 }
 
 func AddPost(post Post, sql SQLDB) error {
-	_, err := sql.Exec("INSERT INTO POST (Id,Description,Post_date,UserId,CategoryId,Title) values ($1,$2,$3,$4,$5,$6)", post.Id, post.Description, post.PostDate, post.User.Id, post.Category.Id, post.Title)
+	_, err := sql.Exec("INSERT INTO POST (Id,Description,Post_date,UserId,Title) values ($1,$2,$3,$4,$5)", post.Id, post.Description, post.PostDate, post.User.Id, post.Title)
 	if err != nil {
 		return err
 	}
@@ -73,7 +68,7 @@ func PostById(id string) (Post, error) {
 	}
 
 	for rows.Next() {
-		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Category.Id, &post.Title)
+		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Title)
 		if err != nil {
 			return Post{}, err
 		}
@@ -83,10 +78,6 @@ func PostById(id string) (Post, error) {
 			return Post{}, err
 		}
 
-		post.Category, err = CategoryById(post.Category.Id)
-		if err != nil {
-			return Post{}, err
-		}
 	}
 
 	return post, nil
@@ -99,7 +90,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 	if sortBy == "created" {
 		query = fmt.Sprintf("SELECT * FROM POST WHERE UserId LIKE '%s';", user.Id)
 	} else if sortBy == "liked" {
-		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date, p.UserId, p.CategoryId, p.Title FROM Post p LEFT JOIN likedPosts l ON p.Id = l.PostId WHERE l.UserId LIKE '%s' AND l.Value LIKE 'like';", user.Id)
+		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date, p.UserId, p.Title FROM Post p LEFT JOIN likedPosts l ON p.Id = l.PostId WHERE l.UserId LIKE '%s' AND l.Value LIKE 'like';", user.Id)
 	} else {
 		return postsLikes, errors.New("no such parameter to sort")
 	}
@@ -111,12 +102,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 
 	for rows.Next() {
 		post := Post{}
-		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Category.Id, &post.Title)
-		if err != nil {
-			return nil, err
-		}
-
-		post.Category, err = CategoryById(post.Category.Id)
+		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Title)
 		if err != nil {
 			return nil, err
 		}
