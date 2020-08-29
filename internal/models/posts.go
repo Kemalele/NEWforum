@@ -32,9 +32,6 @@ func AllPosts() ([]PostDTO, error) {
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println("-----------------------------------------------")
-
-		fmt.Println(post.Category.Id)
 		post.Category, err = CategoryById(post.Category.Id)
 		if err != nil {
 			return nil, err
@@ -100,9 +97,9 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 	var postsLikes []PostDTO
 
 	if sortBy == "created" {
-		query = fmt.Sprintf("SELECT * FROM POST ORDER BY CASE UserId WHEN '%s' THEN 1 ELSE 2 END;", user.Id)
+		query = fmt.Sprintf("SELECT * FROM POST WHERE UserId LIKE '%s';", user.Id)
 	} else if sortBy == "liked" {
-		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date, p.UserId, p.CategoryId, p.Title FROM Post p LEFT JOIN likedPosts l ON p.Id = l.PostId ORDER BY l.UserId LIKE '%s' DESC, l.Value LIKE 'like' DESC;", user.Id)
+		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date, p.UserId, p.CategoryId, p.Title FROM Post p LEFT JOIN likedPosts l ON p.Id = l.PostId WHERE l.UserId LIKE '%s' AND l.Value LIKE 'like';", user.Id)
 	} else {
 		return postsLikes, errors.New("no such parameter to sort")
 	}
@@ -145,11 +142,3 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 	return postsLikes, nil
 }
 
-// func DeletePost(postId string, sql SQLDB) error {
-
-// 	_, err := sql.Exec("DELETE FROM comment WHERE Id = $1", postId)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	return nil
-// }
