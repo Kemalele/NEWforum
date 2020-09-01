@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -91,6 +92,29 @@ func AllCategories() error {
 		}
 		fmt.Println(category)
 
+	}
+	return nil
+}
+
+func UniqueCategories(name string) error {
+	var err error
+	category := Category{}
+	query := fmt.Sprintf("SELECT * FROM Category WHERE Name LIKE '%s'", name)
+	rows, err := Db.Query(query)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&category.Id, &category.Name)
+		if err != nil {
+			fmt.Println(err)
+			return err
+		}
+	}
+	if name == category.Name {
+		return errors.New("category already taken")
 	}
 	return nil
 }
