@@ -75,11 +75,9 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
 	var post models.Post
 	var err error
-
-	var postcategories models.PostsCategories
+	categories := []string{"standard", "shadow", "thinkertoy"}
 
 	post.Id = services.GenerateId()
-	r.ParseForm()
 	post.Description = r.FormValue("description")
 	t := time.Now()
 	post.PostDate = t.Format(time.RFC1123)
@@ -98,62 +96,29 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	post.Title = r.FormValue("theme")
 	post.User.Id = user.Id
 
-	r.ParseMultipartForm(0)
-	arr := []string{}
-	if r.FormValue("standard") == "standard" {
-		postcategories.Id = services.GenerateId()
-		postcategories.Category.Id, err = models.ValidateCategory(r.FormValue("standard"))
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
+	for _, name := range categories {
+		if r.FormValue(name) == name {
+			var postcategories models.PostsCategories
+			postcategories.Id = services.GenerateId()
+			postcategories.Category.Id, err = models.ValidateCategory(name)
+			if err != nil {
+				fmt.Fprintf(w, err.Error())
+				return
+			}
+			postcategories.Post.Id = post.Id
+			err := models.AddCategoryToPost(postcategories, models.Db)
+			if err != nil {
+				fmt.Println(err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
 		}
-		postcategories.Post.Id = post.Id
 
-		arr = append(arr, "standard")
-	}
-	if r.FormValue("shadow") == "shadow" {
-		postcategories.Id = services.GenerateId()
-		postcategories.Category.Id, err = models.ValidateCategory(r.FormValue("shadow"))
+		err = services.NewPost(post)
 		if err != nil {
 			fmt.Fprintf(w, err.Error())
 			return
 		}
-		postcategories.Post.Id = post.Id
-		arr = append(arr, "shadow")
+		http.Redirect(w, r, "/", 302)
 	}
-	if r.FormValue("thinkertoy") == "thinkertoy" {
-		postcategories.Id = services.GenerateId()
-		postcategories.Category.Id, err = models.ValidateCategory(r.FormValue("shadow"))
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		postcategories.Post.Id = post.Id
-		arr = append(arr, "thinkertoy")
-	} else {
-		fmt.Println("Wrong name of category")
-	}
-	fmt.Println(postcategories)
-	fmt.Println(arr)
-	// postcategories.Category.Id, ok = models.ValidateCategory(r.FormValue("standard"))
-	// if !ok {
-	// 	fmt.Fprintf(w, err.Error())
-	// 	return
-	// }
-	// postcategories.Category.Id, ok = models.ValidateCategory(r.FormValue("shadow"))
-	// if !ok {
-	// 	fmt.Fprintf(w, err.Error())
-	// 	return
-	// }
-	// postcategories.Category.Id, ok = models.ValidateCategory(r.FormValue("thinkertoy"))
-	// if !ok {
-	// 	fmt.Fprintf(w, err.Error())
-	// 	return
-	// }
-	err = services.NewPost(post)
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-		return
-	}
-	http.Redirect(w, r, "/", 302)
 }

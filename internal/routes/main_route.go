@@ -32,7 +32,7 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	sortBy := r.FormValue("sortBy")
-
+	fmt.Println(sortBy)
 	response := struct {
 		Posts  []models.PostDTO
 		Authed bool
@@ -59,9 +59,8 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 				w.WriteHeader(http.StatusInternalServerError)
 				break
 			}
+			fmt.Println(posts)
 			response.Posts = posts
-			fmt.Println("here")
-
 		}
 
 	default:

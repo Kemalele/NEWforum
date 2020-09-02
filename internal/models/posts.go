@@ -99,11 +99,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 		query = fmt.Sprintf("SELECT * FROM POST WHERE UserId LIKE '%s';", user.Id)
 	} else if sortBy == "liked" {
 		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date, p.UserId, p.Title FROM Post p LEFT JOIN likedPosts l ON p.Id = l.PostId WHERE l.UserId LIKE '%s' AND l.Value LIKE 'like';", user.Id)
-	} else if sortBy == "standard" {
-		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date,p.UserId,p.Title FROM PostsCategories pc LEFT JOIN Post p ON pc.PostId = p.Id left JOIN Category c ON pc.CategoryId = c.Id WHERE c.Name LIKE '%s'", sortBy)
-	} else if sortBy == "shadow" {
-		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date,p.UserId,p.Title FROM PostsCategories pc LEFT JOIN Post p ON pc.PostId = p.Id left JOIN Category c ON pc.CategoryId = c.Id WHERE c.Name LIKE '%s'", sortBy)
-	} else if sortBy == "thinkertoy" {
+	} else if sortBy == "standard" || sortBy == "shadow" || sortBy == "thinkertoy" {
 		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date,p.UserId,p.Title FROM PostsCategories pc LEFT JOIN Post p ON pc.PostId = p.Id left JOIN Category c ON pc.CategoryId = c.Id WHERE c.Name LIKE '%s'", sortBy)
 	} else {
 		return postsLikes, errors.New("no such parameter to sort")
