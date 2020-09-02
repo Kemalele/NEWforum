@@ -63,19 +63,21 @@ func ValidateCategory(name string) (string, error) {
 	rows, err := Db.Query(query)
 	if err != nil {
 		fmt.Println(err)
+		return "", err
 	}
 
 	for rows.Next() {
 		err := rows.Scan(&category.Id, &category.Name)
 		if err != nil {
 			fmt.Println(err)
+			return "", err
 		}
 	}
 
-	fmt.Println("-----------------------------")
 	if name != category.Name {
-		return "", err
+		return "", errors.New("ERRRRRRRRRRRRRRRRRRRRRRRRRRRR")
 	}
+
 	return category.Id, nil
 }
 

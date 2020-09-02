@@ -59,7 +59,6 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 				w.WriteHeader(http.StatusInternalServerError)
 				break
 			}
-			fmt.Println(posts)
 			response.Posts = posts
 		}
 

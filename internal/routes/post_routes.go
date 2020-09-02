@@ -68,6 +68,7 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
 	t.ExecuteTemplate(w, "write", nil)
 }
 
@@ -103,9 +104,11 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 			postcategories.Id = services.GenerateId()
 			postcategories.Category.Id, err = models.ValidateCategory(name)
 			if err != nil {
-				fmt.Fprintf(w, err.Error())
+				fmt.Println(err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
 				return
 			}
+
 			postcategories.Post.Id = post.Id
 			err := models.AddCategoryToPost(postcategories, models.Db)
 			if err != nil {
@@ -114,12 +117,12 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 				return
 			}
 		}
-
-		err = services.NewPost(post)
-		if err != nil {
-			fmt.Fprintf(w, err.Error())
-			return
-		}
-		http.Redirect(w, r, "/", 302)
 	}
+
+	err = services.NewPost(post)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/", 302)
 }
