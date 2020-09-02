@@ -88,13 +88,16 @@
             <label>Content</label>
             <textarea id="description" name="description"></textarea>
         </div>
-        <label class="select_category" for="category">Category:</label>
-        <select name="category" id="category">
-        <option value="standard">Standard</option>
-        <option value="shadow">Shadow</option>
-        <option value="thinkertoy">Thinkertoy</option>
-    </select>
-        <button type="submit" class="btn btn-default">Submit</button>
+        
+        <form method="POST" name="category" action="/savePost">
+            <input type="checkbox" name="standard" value="standard" />
+            <td>Standard</td>
+            <input type="checkbox" name="shadow" value="shadow" />
+            <td>Shadow</td>
+            <input type="checkbox" name="thinkertoy" value="thinkertoy" />
+            <td>Thinkertoy</td>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </form>
 </body>
 

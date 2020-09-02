@@ -23,12 +23,18 @@ func HandleModeration(w http.ResponseWriter, r *http.Request, params url.Values)
 func HandleModerationSave(w http.ResponseWriter, r *http.Request, params url.Values) {
 	var category models.Category
 	var err error
-
-	category.Id = services.GenerateId()
 	category.Name = r.FormValue("category")
+	category.Id = services.GenerateId()
+
+	err = models.UniqueCategories(category.Name)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
 	err = models.AddCategory(category, models.Db)
 	if err != nil {
 		fmt.Println(err.Error())
+
 		fmt.Fprintf(w, err.Error())
 		return
 	}

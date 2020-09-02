@@ -89,6 +89,7 @@
             {{if .Authed}}
             <option value="created">Created</option>
             <option value="liked">Liked</option>
+            <option value="categories">Categories</option>
             {{ end }}
         </select>
             <input type="submit" value="Submit">
@@ -119,11 +120,6 @@
             <div class="row">
                 <div class="col-xs-8">
                     {{ $postLike.Post.PostDate }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.Category.Name}}
                 </div>
             </div>
             <div class="row">

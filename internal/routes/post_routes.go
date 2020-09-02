@@ -68,17 +68,21 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	//categories, err := models.CategoriesByName(params.Get("Name"))
 	t.ExecuteTemplate(w, "write", nil)
 }
 
 func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
 	var post models.Post
 	var err error
+	categories := []string{"standard", "shadow", "thinkertoy"}
 
 	post.Id = services.GenerateId()
+	r.ParseForm()
 	post.Description = r.FormValue("description")
 	t := time.Now()
 	post.PostDate = t.Format(time.RFC1123)
+
 	username, ok := services.Authenticated(r, Cache)
 	if !ok {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
@@ -92,15 +96,32 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 		return
 	}
 
-	post.User.Id = user.Id
-	fmt.Println(user.Id)
-	post.Category.Id, err = models.ValidateCategory(r.FormValue("category"))
-	if err != nil {
-		fmt.Println(err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
 	post.Title = r.FormValue("theme")
+	post.User.Id = user.Id
+
+	r.ParseMultipartForm(0)
+	arr := []string{}
+
+	for _, name := range categories {
+		if r.FormValue(name) == name {
+			var postcategories models.PostsCategories
+			postcategories.Id = services.GenerateId()
+			postcategories.Category.Id, err = models.ValidateCategory(name)
+			if err != nil {
+				fmt.Fprintf(w, err.Error())
+				return
+			}
+
+			postcategories.Post.Id = post.Id
+			arr = append(arr, name)
+			err := models.AddCategoryToPost(postcategories, models.Db)
+			if err != nil {
+				fmt.Println(err.Error())
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+		}
+	}
 
 	err = services.NewPost(post)
 	if err != nil {
