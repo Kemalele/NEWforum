@@ -68,7 +68,6 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	//categories, err := models.CategoriesByName(params.Get("Name"))
 	t.ExecuteTemplate(w, "write", nil)
 }
 
@@ -81,6 +80,7 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	post.Description = r.FormValue("description")
 	t := time.Now()
 	post.PostDate = t.Format(time.RFC1123)
+
 	username, ok := services.Authenticated(r, Cache)
 	if !ok {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
@@ -93,6 +93,7 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+
 	post.Title = r.FormValue("theme")
 	post.User.Id = user.Id
 
