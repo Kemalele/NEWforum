@@ -6,10 +6,10 @@ import (
 )
 
 type PostDTO struct {
-	Post     Post
+	Post       Post
 	Categories []Category
-	Likes    int
-	Dislikes int
+	Likes      int
+	Dislikes   int
 }
 
 type Post struct {
@@ -54,7 +54,7 @@ func AllPosts() ([]PostDTO, error) {
 			return nil, err
 		}
 
-		postsLikes = append(postsLikes, PostDTO{Post: post,Categories: categories, Likes: likes, Dislikes: dislikes})
+		postsLikes = append(postsLikes, PostDTO{Post: post, Categories: categories, Likes: likes, Dislikes: dislikes})
 	}
 	return postsLikes, nil
 }
@@ -99,10 +99,15 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 		query = fmt.Sprintf("SELECT * FROM POST WHERE UserId LIKE '%s';", user.Id)
 	} else if sortBy == "liked" {
 		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date, p.UserId, p.Title FROM Post p LEFT JOIN likedPosts l ON p.Id = l.PostId WHERE l.UserId LIKE '%s' AND l.Value LIKE 'like';", user.Id)
+	} else if sortBy == "standard" {
+		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date,p.UserId,p.Title FROM PostsCategories pc LEFT JOIN Post p ON pc.PostId = p.Id left JOIN Category c ON pc.CategoryId = c.Id WHERE c.Name LIKE '%s'", sortBy)
+	} else if sortBy == "shadow" {
+		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date,p.UserId,p.Title FROM PostsCategories pc LEFT JOIN Post p ON pc.PostId = p.Id left JOIN Category c ON pc.CategoryId = c.Id WHERE c.Name LIKE '%s'", sortBy)
+	} else if sortBy == "thinkertoy" {
+		query = fmt.Sprintf("SELECT p.Id, p.Description, p.Post_date,p.UserId,p.Title FROM PostsCategories pc LEFT JOIN Post p ON pc.PostId = p.Id left JOIN Category c ON pc.CategoryId = c.Id WHERE c.Name LIKE '%s'", sortBy)
 	} else {
 		return postsLikes, errors.New("no such parameter to sort")
 	}
-
 	rows, err := Db.Query(query)
 	if err != nil {
 		return nil, err
@@ -140,4 +145,3 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 
 	return postsLikes, nil
 }
-

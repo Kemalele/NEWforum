@@ -44,7 +44,7 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	switch sortBy {
-	case "created", "liked":
+	case "created", "liked", "standard", "shadow", "thinkertoy":
 		if authed {
 			user, err := models.UserByName(username)
 			if err != nil {

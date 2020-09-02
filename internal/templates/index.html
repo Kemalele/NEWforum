@@ -89,7 +89,11 @@
             {{if .Authed}}
             <option value="created">Created</option>
             <option value="liked">Liked</option>
-            <option value="categories">Categories</option>
+            <optgroup label="Categories">
+                <option value="standard">Standard</option>
+                <option value="shadow">Shadow</option>
+                <option value="thinkertoy">Thinkertoy</option>
+              </optgroup>
             {{ end }}
         </select>
             <input type="submit" value="Submit">
