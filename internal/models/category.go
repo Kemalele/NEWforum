@@ -118,3 +118,20 @@ func UniqueCategories(name string) error {
 	}
 	return nil
 }
+
+func CategoriesByName(name string) (Category, error) {
+	category := Category{}
+	query := fmt.Sprintf("SELECT * FROM Category WHERE Name LIKE '%s'", name)
+	rows, err := Db.Query(query)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&category.Id, &category.Name)
+		if err != nil {
+			return Category{}, err
+		}
+	}
+	return category, nil
+}

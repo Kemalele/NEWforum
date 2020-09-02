@@ -33,40 +33,13 @@
             right: 10px;
         }
         
-        .tagPost p {
-            font-size: 26px;
-            text-align: center;
-        }
-        
-        .Posts {
+        .form {
             background-color: darkcyan;
             margin-left: auto;
             margin-right: auto;
             width: 60%;
             min-height: 600px;
             padding: 20px;
-        }
-        
-        .post {
-            background-color: skyblue;
-            display: block;
-            margin-top: 40px;
-            padding: 20px;
-        }
-        
-        .createPost {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 100px;
-            width: 100px;
-            height: 30px;
-        }
-        
-        .toCreatePost {
-            background-color: blue;
-            width: 100px;
-            height: 30px;
         }
     </style>
     <meta charset="UTF-8">
@@ -78,14 +51,17 @@
     <div class="header">
         <p>FORUM</p>
     </div>
-    <form role="form" method="POST" action="/moderationSave">
-        <input type="hidden" name="id" value="id" />
-        <div class="form-group">
-            <label>NewCategory</label>
-            <input type="text" class="form-control" id="category" name="category" />
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+    <div class="Category">
+        <form role="form" method="POST" action="/moderationSave">
+            <input type="hidden" name="id" value="id" />
+            <div class="form-group">
+                <label>NewCategory</label>
+                <input type="text" class="form-control" id="category" name="category" />
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+
 </body>
 
 </html>

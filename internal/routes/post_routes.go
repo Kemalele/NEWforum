@@ -68,6 +68,7 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	//categories, err := models.CategoriesByName(params.Get("Name"))
 	t.ExecuteTemplate(w, "write", nil)
 }
 
@@ -91,9 +92,9 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	post.User.Id = user.Id
 	post.Title = r.FormValue("theme")
+	post.User.Id = user.Id
+	post.Category = r.Form("theme")
 
 	err = services.NewPost(post)
 	if err != nil {
