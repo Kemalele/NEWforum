@@ -3,12 +3,12 @@ package models
 import "fmt"
 
 type PostsCategories struct {
-	Id string
+	Id       string
 	Category Category
-	Post Post
+	Post     Post
 }
 
-func CategoriesByPostId(postId string) ([]Category,error) {
+func CategoriesByPostId(postId string) ([]Category, error) {
 	var categories []Category
 	query := fmt.Sprintf("SELECT CategoryId FROM PostsCategories WHERE PostId LIKE '%s'", postId)
 	rows, err := Db.Query(query)
@@ -29,18 +29,17 @@ func CategoriesByPostId(postId string) ([]Category,error) {
 			return nil, err
 		}
 
-		categories = append(categories,category)
+		categories = append(categories, category)
 	}
 
 	return categories, nil
 }
 
-func AddCategoryToPost(postId, categoryId, sql SQLDB) error {
+func AddCategoryToPost(postCategory PostsCategories, sql SQLDB) error {
 	query := "INSERT INTO PostsCategories (Id, PostId, CategoryId) values ($1,$2,$3)"
-	_, err := sql.Exec(query, postId,categoryId)
+	_, err := sql.Exec(query, postCategory.Id, postCategory.Post.Id, postCategory.Category.Id)
 	if err != nil {
 		return err
 	}
 	return nil
 }
-
