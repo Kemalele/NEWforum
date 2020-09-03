@@ -95,7 +95,8 @@
         <div class="auth">
             {{if not .Authed }}
             <a href="registration">Registation</a><br>
-            <a href="authentication">Auth</a> {{ end }}
+            <a href="authentication">Auth</a> 
+            {{ end }}
         </div>
 
 
@@ -161,6 +162,13 @@
                     <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
                     <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
                 </div>
+            </div>
+            <div class="row">
+                {{ range $category := $postLike.Categories }}
+                <div class="col-xs-8">
+                    {{ $category.Name}}
+                </div>
+                {{ end }}
             </div>
         </div>
         {{ end }}

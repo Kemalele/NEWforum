@@ -12,7 +12,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-var Cache map[string]string
+var Cache services.Cache
 
 func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	if r.URL.Path != "/" {
@@ -28,17 +28,15 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
-	username, authed := services.Authenticated(r, Cache)
+	username, authed := services.Authenticated(r, &Cache)
 
 	user, err := models.UserByName(username)
 	if err != nil {
 		fmt.Println(err.Error())
-
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
 	sortBy := r.FormValue("sortBy")
-	fmt.Println(sortBy)
 	response := struct {
 		Posts  []models.PostDTO
 		Authed bool
@@ -102,7 +100,6 @@ func Rate(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	if requestBody.Action != "like" && requestBody.Action != "dislike" {
-
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
