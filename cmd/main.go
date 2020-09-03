@@ -23,6 +23,7 @@ func main() {
 	r.Handle("GET", "/registration", routes.GetRegistration)
 	r.Handle("GET", "/authentication", routes.GetAuth)
 	r.Handle("GET", "/post/:id", routes.HandlePostPage)
+	r.Handle("GET", "/logout", routes.HandleLogout)
 
 	r.Handle("POST", "/post/:id/_method=POST", routes.SaveCommentHandler)
 	r.Handle("POST", "/savePost", routes.SavePostHandler)

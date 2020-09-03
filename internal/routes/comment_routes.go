@@ -43,10 +43,12 @@ func SaveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Value
 		User:        user,
 		Post:        post,
 	}
-
-	models.AddComment(comment, models.Db)
-	http.Redirect(w, r, "/post/"+postId, http.StatusSeeOther)
-	return
+	err = services.NewComment(comment)
+	if err != nil {
+		fmt.Fprintf(w, err.Error())
+		return
+	}
+	http.Redirect(w, r, "/", 302)
 }
 
 func DeleteCommentHandler(w http.ResponseWriter, r *http.Request, params url.Values) {

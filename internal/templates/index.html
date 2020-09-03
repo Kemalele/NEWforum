@@ -17,7 +17,8 @@
         
         .header {
             height: 100px;
-            background-color: #999;
+            background-color: #435a6b;
+            ;
         }
         
         .header p {
@@ -28,9 +29,15 @@
         }
         
         .auth {
-            position: absolute;
+            position: center;
             top: 20px;
             right: 10px;
+        }
+        
+        .account {
+            position: absolute;
+            top: 20px;
+            right: 50px;
         }
         
         .tagPost p {
@@ -56,11 +63,19 @@
         
         .createPost {
             position: center;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 0px;
             width: 100px;
             height: 30px;
+            display: inline-block;
+            margin: 15px 25px;
+            outline: none;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+            font-size: 1.35em;
+            font-family: 'Raleway', sans-serif;
         }
         
         .toCreatePost {
@@ -74,11 +89,21 @@
 <body>
     <div class="header">
         <p>FORUM</p>
+        <div class="createPost">
+            <a href="write">CreateNewPost</a>
+        </div>
         <div class="auth">
+            {{if not .Authed }}
             <a href="registration">Registation</a><br>
-            <a href="authentication">Auth</a>
+            <a href="authentication">Auth</a> {{ end }}
+        </div>
+
+
+        <div class="account">
+            {{if .Authed}}
+            <a href="logout">Log out</a>
             <a href="name"></a>
-            <a>Log ou</a>
+            {{ end }}
         </div>
 
     </div>
@@ -93,7 +118,7 @@
                 <option value="standard">Standard</option>
                 <option value="shadow">Shadow</option>
                 <option value="thinkertoy">Thinkertoy</option>
-         </optgroup>
+              </optgroup>
             {{ end }}
         </select>
             <input type="submit" value="Submit">
