@@ -28,9 +28,15 @@
         }
         
         .auth {
-            position: absolute;
+            position: center;
             top: 20px;
             right: 10px;
+        }
+        
+        .account {
+            position: absolute;
+            top: 20px;
+            right: 50px;
         }
         
         .tagPost p {
@@ -75,10 +81,17 @@
     <div class="header">
         <p>FORUM</p>
         <div class="auth">
+            {{if not .Authed }}
             <a href="registration">Registation</a><br>
-            <a href="authentication">Auth</a>
+            <a href="authentication">Auth</a> {{ end }}
+        </div>
+
+
+        <div class="account">
+            {{if .Authed}}
+            <a href="logout">Log out</a>
             <a href="name"></a>
-            <a>Log ou</a>
+            {{ end }}
         </div>
 
     </div>
@@ -93,7 +106,7 @@
                 <option value="standard">Standard</option>
                 <option value="shadow">Shadow</option>
                 <option value="thinkertoy">Thinkertoy</option>
-         </optgroup>
+              </optgroup>
             {{ end }}
         </select>
             <input type="submit" value="Submit">
