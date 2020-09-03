@@ -113,6 +113,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 		post := Post{}
 		err := rows.Scan(&post.Id, &post.Description, &post.PostDate, &post.User.Id, &post.Title)
 		if err != nil {
+			fmt.Println("posts: 116")
 			return nil, err
 		}
 
@@ -133,6 +134,7 @@ func SortedPosts(sortBy string, user User) ([]PostDTO, error) {
 
 		categories, err := CategoriesByPostId(post.Id)
 		if err != nil {
+			fmt.Println("posts : 137")
 			return nil, err
 		}
 

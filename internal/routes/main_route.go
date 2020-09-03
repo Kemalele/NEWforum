@@ -55,9 +55,10 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 
 			posts, err := models.SortedPosts(sortBy, user)
 			if err != nil {
+				fmt.Println("main_route : 58")
 				fmt.Println(err.Error())
 				w.WriteHeader(http.StatusInternalServerError)
-				break
+				return
 			}
 			response.Posts = posts
 		}

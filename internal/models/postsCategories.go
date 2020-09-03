@@ -39,6 +39,7 @@ func AddCategoryToPost(postCategory PostsCategories, sql SQLDB) error {
 	query := "INSERT INTO PostsCategories (Id, PostId, CategoryId) values ($1,$2,$3)"
 	_, err := sql.Exec(query, postCategory.Id, postCategory.Post.Id, postCategory.Category.Id)
 	if err != nil {
+		fmt.Println("postsCategories : 42")
 		return err
 	}
 	return nil
