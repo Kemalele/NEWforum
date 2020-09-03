@@ -38,7 +38,6 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	sortBy := r.FormValue("sortBy")
-	fmt.Println(sortBy)
 	response := struct {
 		Posts  []models.PostDTO
 		Authed bool
@@ -102,7 +101,6 @@ func Rate(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	if requestBody.Action != "like" && requestBody.Action != "dislike" {
-
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
