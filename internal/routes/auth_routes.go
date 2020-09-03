@@ -36,11 +36,12 @@ func HandleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 
 	sessionToken, _ := uuid.NewV4()
 	Cache.Add(username, sessionToken.String())
+	fmt.Println("AUTH - ", Cache)
 
 	http.SetCookie(w, &http.Cookie{
 		Name:     "session_token",
 		Value:    sessionToken.String(),
-		Expires:  time.Now().Add(5 * time.Second),
+		Expires:  time.Now().Add(1 * time.Hour),
 		HttpOnly: true,
 	})
 	http.Redirect(w, r, "/", http.StatusSeeOther)

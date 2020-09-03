@@ -60,6 +60,15 @@ func (c *Cache) UserExists(username string) bool {
 	return true
 }
 
+func (c *Cache) Match(token, user string) bool {
+	tokenByUser := c.userToken[user]
+	if tokenByUser != token {
+		return false
+	}
+
+	return true
+}
+
 func CorrectUser(username, password string) error {
 	user, err := models.UserByName(username)
 	if err != nil {
@@ -95,6 +104,8 @@ func Authenticated(r *http.Request, cache *Cache) (string, bool) {
 
 	if !cache.TokenExists(sessionToken) {
 		cache.DeleteToken(sessionToken)
+		return "", false
+	} else if !cache.Match(sessionToken, cache.UserByToken(sessionToken)) {
 		return "", false
 	}
 
