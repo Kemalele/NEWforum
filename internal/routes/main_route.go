@@ -15,6 +15,12 @@ import (
 var Cache map[string]string
 
 func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
+	if r.URL.Path != "/" {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "404 Page not found")
+		return
+	}
+
 	t, err := template.ParseFiles("../internal/templates/index.html")
 	if err != nil {
 		fmt.Println(err.Error())

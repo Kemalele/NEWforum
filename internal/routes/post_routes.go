@@ -26,6 +26,12 @@ func HandlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
+	if post == (models.Post{}) {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "404 Not Found")
+		return
+	}
+
 	username, authed := services.Authenticated(r, Cache)
 	user, err := models.UserByName(username)
 	if err != nil {
