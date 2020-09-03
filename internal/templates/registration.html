@@ -74,21 +74,25 @@
 <body>
     <div class="header">
         <p>FORUM</p>
-        <div class="auth">
-            <a href="registration">Registation</a><br>
-            <a href="authentication">Auth</a>
-            <a href="name"></a>
-        </div>
     </div>
     <meta charset="UTF-8">
     <title>Registration</title>
     <form action="/registration" method="POST">
-        Username
-        <input type="text" name="username"><br> Password
-        <input type="password" maxlength="25" size="40" name="password"><br> Email
-        <input type="text" name="email"><br>
-
-        <input type="submit" value="Register">
+        <p class="clearfix">
+            <label for="login">Username</label>
+            <input type="text" name="username" id="login" placeholder="Username">
+        </p>
+        <p class="clearfix">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password">
+        </p>
+        <p class="clearfix">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" placeholder="Email">
+        </p>
+        <p class="clearfix">
+            <input type="submit" name="submit" value="Register">
+        </p>
     </form>
 
 </body>
