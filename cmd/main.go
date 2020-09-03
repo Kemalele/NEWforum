@@ -8,6 +8,7 @@ import (
 
 	models "../internal/models"
 	routes "../internal/routes"
+	services "../internal/services"
 	router "../pkg/router"
 )
 
@@ -16,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	routes.Cache = make(map[string]string)
+	routes.Cache = *services.NewCache()
 	r := router.New(routes.GetMain)
 	r.Handle("GET", "/", routes.GetMain)
 	r.Handle("GET", "/write", routes.WritePost)
@@ -38,7 +39,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3030"
+		port = "8080"
 	}
 
 	fmt.Printf("app is running on %s\n", port)

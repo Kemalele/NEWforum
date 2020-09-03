@@ -32,7 +32,7 @@ func HandlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
-	username, authed := services.Authenticated(r, Cache)
+	username, authed := services.Authenticated(r, &Cache)
 	user, err := models.UserByName(username)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -64,7 +64,7 @@ func HandlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t, err := template.ParseFiles("../internal/templates/write.html")
 
-	_, ok := services.Authenticated(r, Cache)
+	_, ok := services.Authenticated(r, &Cache)
 	if !ok {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
 		return
@@ -88,7 +88,7 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	t := time.Now()
 	post.PostDate = t.Format(time.RFC1123)
 
-	username, ok := services.Authenticated(r, Cache)
+	username, ok := services.Authenticated(r, &Cache)
 	if !ok {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
 		return
