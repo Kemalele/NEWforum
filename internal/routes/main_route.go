@@ -49,23 +49,27 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 
 	switch sortBy {
 	case "created", "liked", "standard", "shadow", "thinkertoy":
-		if authed {
-			user, err := models.UserByName(username)
-			if err != nil {
-				fmt.Println(err.Error())
-				w.WriteHeader(http.StatusInternalServerError)
-				break
-			}
-
-			posts, err := models.SortedPosts(sortBy, user)
-			if err != nil {
-				fmt.Println("main_route : 58")
-				fmt.Println(err.Error())
-				w.WriteHeader(http.StatusInternalServerError)
-				return
-			}
-			response.Posts = posts
+		if (sortBy == "created" || sortBy == "liked") && !authed {
+			w.WriteHeader(http.StatusForbidden)
+			return
 		}
+
+		user, err := models.UserByName(username)
+		if err != nil {
+			fmt.Println(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			break
+		}
+
+		posts, err := models.SortedPosts(sortBy, user)
+		if err != nil {
+			fmt.Println("main_route : 58")
+			fmt.Println(err.Error())
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		response.Posts = posts
+	
 
 	default:
 		posts, err := models.AllPosts()

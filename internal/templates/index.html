@@ -156,15 +156,16 @@
             {{if .Authed}}
             <option value="created">Created</option>
             <option value="liked">Liked</option>
+            {{ end }}
+
             <optgroup label="Categories">
                 <option value="standard">Standard</option>
                 <option value="shadow">Shadow</option>
                 <option value="thinkertoy">Thinkertoy</option>
               </optgroup>
-            {{ end }}
         </select>
             <input type="submit" value="Submit">
-            <input type="reset" value="Reset">
+            <button><a href="http://localhost:8080/">Reset</a></button>
         </form>
     </div>
 
