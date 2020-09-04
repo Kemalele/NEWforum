@@ -2,14 +2,14 @@ package routes
 
 import (
 	"fmt"
-	uuid "github.com/satori/go.uuid"
+	"html/template"
 	"net/http"
 	"net/url"
 	"time"
-	"html/template"
-	services "../services"
-)
 
+	services "../services"
+	uuid "github.com/satori/go.uuid"
+)
 
 func GetAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t, err := template.ParseFiles("../internal/templates/authentication.html")
@@ -29,8 +29,15 @@ func HandleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+
+	if Cache.UserExists(username) {
+		Cache.DeleteUser(username)
+	}
+
 	sessionToken, _ := uuid.NewV4()
-	Cache[sessionToken.String()] = username
+	Cache.Add(username, sessionToken.String())
+	fmt.Println("AUTH - ", Cache)
+
 	http.SetCookie(w, &http.Cookie{
 		Name:     "session_token",
 		Value:    sessionToken.String(),
@@ -40,4 +47,3 @@ func HandleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
 }
-

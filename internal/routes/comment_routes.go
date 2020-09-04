@@ -13,7 +13,7 @@ import (
 
 func SaveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Values) {
 	postId := params.Get("id")
-	username, _ := services.Authenticated(r, Cache)
+	username, _ := services.Authenticated(r, &Cache)
 
 	user, err := models.UserByName(username)
 	if err != nil {
