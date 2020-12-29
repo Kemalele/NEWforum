@@ -69,7 +69,6 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 			return
 		}
 		response.Posts = posts
-	
 
 	default:
 		posts, err := models.AllPosts()

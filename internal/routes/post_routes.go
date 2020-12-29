@@ -14,8 +14,13 @@ import (
 func HandlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t, err := template.ParseFiles("../internal/templates/post.html")
 	if err != nil {
-		fmt.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	if !services.ValidURL(r.URL.Path, 2) {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "404 Page not found")
 		return
 	}
 
@@ -63,6 +68,12 @@ func HandlePostPage(w http.ResponseWriter, r *http.Request, params url.Values) {
 
 func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 	t, err := template.ParseFiles("../internal/templates/write.html")
+
+	if !services.ValidURL(r.URL.Path, 1) {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "404 Page not found")
+		return
+	}
 
 	_, ok := services.Authenticated(r, &Cache)
 	if !ok {

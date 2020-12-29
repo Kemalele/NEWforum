@@ -38,6 +38,12 @@ func HandleRegistration(w http.ResponseWriter, r *http.Request, params url.Value
 }
 
 func GetRegistration(w http.ResponseWriter, r *http.Request, params url.Values) {
+	if r.URL.Path != "/registration" {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "404 Page not found")
+		return
+	}
+
 	t, err := template.ParseFiles("../internal/templates/registration.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

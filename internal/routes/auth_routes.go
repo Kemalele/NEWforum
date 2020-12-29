@@ -12,6 +12,11 @@ import (
 )
 
 func GetAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
+	if r.URL.Path != "/authentication" {
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Fprintf(w, "404 Page not found")
+		return
+	}
 	t, err := template.ParseFiles("../internal/templates/authentication.html")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
