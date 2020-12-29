@@ -7,9 +7,13 @@ import (
 )
 
 func HandleLogout(w http.ResponseWriter, r *http.Request, params url.Values) {
-	sessionToken, _ := r.Cookie("session_token")
-	Cache.DeleteToken(sessionToken.Value)
+	sessionToken, err := r.Cookie("session_token")
+	if err != nil {
+		http.Redirect(w, r, "/authentication", http.StatusSeeOther)
+		return
+	}
 
+	Cache.DeleteToken(sessionToken.Value)
 	http.SetCookie(w, &http.Cookie{
 		Name:     "session_token",
 		Value:    "",
