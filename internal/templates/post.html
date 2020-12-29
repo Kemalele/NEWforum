@@ -69,6 +69,44 @@
             width: 100px;
             height: 30px;
         }
+        .auth {
+            position: absolute;
+            top: 20px;
+            right: 100px;
+            width: 100px;
+            height: 30px;
+            display: inline-block;
+            margin: 15px 25px;
+            outline: none;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+            font-size: 1.35em;
+            font-family: 'Lato', Arial, sans-serif;
+        }
+
+                
+        .account {
+            position: absolute;
+            top: 20px;
+            right: 700px;
+            width: 100px;
+            height: 30px;
+            display: inline-block;
+            margin: 15px 25px;
+            outline: none;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+            font-size: 1.35em;
+            font-family: 'Lato', Arial, sans-serif;
+        }
     </style>
 </head>
 
@@ -76,10 +114,17 @@
     <div class="header">
         <p>FORUM</p>
         <div class="auth">
-            <a href="http://localhost:3030/registration">Registation</a><br>
-            <a href="http://localhost:3030/authentication">Auth</a>
-            <a href="http://localhost:3030/logout">Logout</a>
-            <a href="name"></a>
+            {{if not .Authed }}
+            <a href="/registration">Registation</a><br>
+            <a href="/authentication">Auth</a> 
+            {{ end }}
+        </div>
+
+        <div class="account">
+            {{if .Authed}}
+            <a href="/logout">Logout</a>
+            <a href="/name"></a>
+            {{ end }}
         </div>
 
     </div>
