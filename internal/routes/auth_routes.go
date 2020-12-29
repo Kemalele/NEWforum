@@ -34,7 +34,12 @@ func HandleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+	authenticate(w, username)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+	return
+}
 
+func authenticate(w http.ResponseWriter, username string) {
 	if Cache.UserExists(username) {
 		Cache.DeleteUser(username)
 	}
@@ -49,6 +54,4 @@ func HandleAuth(w http.ResponseWriter, r *http.Request, params url.Values) {
 		Expires:  time.Now().Add(1 * time.Hour),
 		HttpOnly: true,
 	})
-	http.Redirect(w, r, "/", http.StatusSeeOther)
-	return
 }

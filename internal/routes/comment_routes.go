@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 
 	models "../models"
@@ -48,7 +49,11 @@ func SaveCommentHandler(w http.ResponseWriter, r *http.Request, params url.Value
 		fmt.Fprintf(w, err.Error())
 		return
 	}
-	http.Redirect(w, r, "/", 302)
+
+	// redirect to same post
+	postUrlLastIndex := strings.LastIndex(r.URL.Path, "/")
+	postURL := r.URL.Path[:postUrlLastIndex]
+	http.Redirect(w, r, postURL, 302)
 }
 
 func DeleteCommentHandler(w http.ResponseWriter, r *http.Request, params url.Values) {

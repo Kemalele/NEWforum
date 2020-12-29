@@ -33,6 +33,8 @@ func HandleRegistration(w http.ResponseWriter, r *http.Request, params url.Value
 		fmt.Fprintf(w, err.Error())
 		return
 	}
+
+	authenticate(w, user.Username)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
 }
