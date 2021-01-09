@@ -67,6 +67,16 @@
             width: 100px;
             height: 30px;
         }
+        
+        .rq {
+            color: #FF0000;
+            font-size: 10pt;
+        }
+        
+        li {
+            list-style-type: none;
+            font-size: 16pt;
+        }
     </style>
 
 </head>
@@ -83,16 +93,33 @@
             <input type="text" name="username" id="login" placeholder="Username">
         </p>
         <p class="clearfix">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password">
+            <ul>
+                <li><input type="password" name="password" id="password" placeholder="Password"></li>
+                <li>&nbsp;</li>
+                <li><input type="password1" name="password1" id="password1" placeholder="Password1"></li>
+                <li class="rq">*Input Password and Submit [7 to 15 characters which contain only characters, numeric digits, underscore and first character must be a letter]</li>
+                <li>&nbsp;</li>
+            </ul>
         </p>
+
         <p class="clearfix">
             <label for="email">Email</label>
             <input type="text" name="email" id="email" placeholder="Email">
         </p>
         <p class="clearfix">
-            <input type="submit" name="submit" value="Register">
+            <input type="submit" name="submit" value="Register" onclick="CheckPassword(document.form1.text1)">
         </p>
     </form>
-
+    <script>
+        function CheckPassword(inputtxt) {
+            var passw = /^[A-Za-z]\w{7,14}$/;
+            if (inputtxt.value.match(passw)) {
+                alert('Correct, try another...')
+                return true;
+            } else {
+                alert('Wrong...!')
+                return false;
+            }
+        }
+    </script>
 </body>
