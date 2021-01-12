@@ -1,6 +1,9 @@
 package models
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
 type LikedPost struct {
 	Id    string
@@ -65,6 +68,31 @@ func AddLikedPosts(liked LikedPost, sql SQLDB) error {
 	}
 
 	return nil
+}
+func PostRate(userId, postId string) (LikedPost, error) {
+	var rate LikedPost
+	query := fmt.Sprintf("SELECT * FROM likedPosts WHERE UserId LIKE '%s' AND PostId LIKE '%s'", userId, postId)
+	err := Db.QueryRow(query).Scan(&rate.Id, &rate.Value, &rate.Post.Id, &rate.User.Id)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			return rate, err
+		}
+	}
+
+	return rate, nil
+}
+
+func CommentRate(userId, commentId string) (LikedComment, error) {
+	var rate LikedComment
+	query := fmt.Sprintf("SELECT * FROM likedComments WHERE UserId LIKE '%s' AND CommentId LIKE '%s'", userId, commentId)
+	err := Db.QueryRow(query).Scan(&rate.Id, &rate.Value, &rate.Comment.Id, &rate.User.Id)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			return rate, err
+		}
+	}
+
+	return rate, nil
 }
 
 func DeleteLikedPost(userId, postId string, sql SQLDB) error {
