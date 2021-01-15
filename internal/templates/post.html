@@ -69,6 +69,7 @@
             width: 100px;
             height: 30px;
         }
+        
         .auth {
             position: absolute;
             top: 20px;
@@ -87,8 +88,7 @@
             font-size: 1.35em;
             font-family: 'Lato', Arial, sans-serif;
         }
-
-                
+        
         .account {
             position: absolute;
             top: 20px;
@@ -116,8 +116,7 @@
         <div class="auth">
             {{if not .Authed }}
             <a href="/registration">Registation</a><br>
-            <a href="/authentication">Auth</a> 
-            {{ end }}
+            <a href="/authentication">Auth</a> {{ end }}
         </div>
 
         <div class="account">
@@ -134,20 +133,16 @@
     </div>
 
     <div class="comments">
-        Comments:<br><br> 
-        {{ range $commentLikes := .Comments }} 
-        {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
+        Comments:<br><br> {{ range $commentLikes := .Comments }} {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
         <button onclick="rate('like', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $commentLikes.Likes }}</button>
-        <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button>
-        {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
+        <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button> {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
         <br>
         <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
             <input type="hidden" name="commentId" value="{{ $commentLikes.Comment.Id }}">
             <input type="submit" value="delete">
         </form>
         {{ else }}
-        <br><br> {{ end }} 
-        {{ end }}
+        <br><br> {{ end }} {{ end }}
     </div>
 
     {{ if .Authed}}
@@ -166,12 +161,12 @@
         }
 
         let resp = {
-            action  : action,
-            target : target,
-            targetId : targetId,
-            userId : userId,
+            action: action,
+            target: target,
+            targetId: targetId,
+            userId: userId,
         }
-        
+
         const Http = new XMLHttpRequest()
         const url = '/rate'
         Http.open('POST', url)
@@ -185,4 +180,5 @@
 
     }
 </script>
+
 </html>
