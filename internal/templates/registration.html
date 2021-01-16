@@ -4,360 +4,68 @@
 <head>
     <link href="css/site_styles.css" rel="stylesheet">
     <style>
-        element.style {}
-        
-        .login-dialog {
-            box-sizing: border-box;
-            padding: 15px;
-            width: 320px;
-            font-size: 12px;
-        }
-        
-        .standard-box {
-            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .5);
-            background-color: #2d3844;
-        }
-        
-        user agent stylesheet div {
-            display: block;
-        }
-        
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
-        }
-        
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
-        }
-        
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
-        }
-        
-        element.style {}
-        
-        .fixed-overlay-popup-content {
-            position: fixed;
-            transform: translate(-50%, -50%);
-        }
-        
-        user agent stylesheet div {
-            display: block;
-        }
-        
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
-        }
-        
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
-        }
-        
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            font-weight: 700;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .loginInput,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            height: 38px;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .login-elm,
-        .login-dialog .loginInput,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-        
-        .button {
-            display: inline-block;
+        div {
             margin: 0;
-            padding: 2px;
-            color: #929a9e;
-            background-color: #435971;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
-            cursor: pointer;
-            border: 0;
-            transition: background-color .2s cubic-bezier(.59, .43, .99, 1);
+            padding: 0;
+            outline: 0;
         }
         
-        [type=reset],
-        [type=submit],
-        button,
-        html [type=button] {
-            -webkit-appearance: button;
-        }
-        
-        button,
-        select {
-            text-transform: none;
-        }
-        
-        button,
-        input {
-            overflow: visible;
-        }
-        
-        button,
-        input,
-        optgroup,
-        select,
         textarea {
-            font: inherit;
-            margin: 0;
+            resize: none;
         }
         
-        user agent stylesheet button {
-            appearance: button;
-            -webkit-writing-mode: horizontal-tb !important;
-            text-rendering: auto;
-            color: -internal-light-dark(black, white);
-            letter-spacing: normal;
-            word-spacing: normal;
-            text-transform: none;
-            text-indent: 0px;
-            text-shadow: none;
-            display: inline-block;
+        .header {
+            height: 100px;
+            background-color: #999;
+        }
+        
+        .header p {
+            position: absolute;
+            font-size: 48px;
+            margin-left: 20%;
+            margin-top: 20px;
+        }
+        
+        .auth {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+        }
+        
+        .tagPost p {
+            font-size: 26px;
             text-align: center;
-            align-items: flex-start;
-            cursor: default;
-            background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
-            box-sizing: border-box;
-            margin: 0em;
-            font: 400 13.3333px Arial;
-            padding: 1px 6px;
-            border-width: 2px;
-            border-style: outset;
-            border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-            border-image: initial;
         }
         
-        .login-dialog {
-            box-sizing: border-box;
-            padding: 15px;
-            width: 320px;
-            font-size: 12px;
+        .Posts {
+            background-color: darkcyan;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+            min-height: 600px;
+            padding: 20px;
         }
         
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
+        .post {
+            background-color: skyblue;
+            display: block;
+            margin-top: 40px;
+            padding: 20px;
         }
         
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
+        .createPost {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+            width: 100px;
+            height: 30px;
         }
         
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
-        }
-        
-        .login-dialog .signup-button {
-            line-height: 32px;
-            text-align: center;
-            vertical-align: middle;
-            box-sizing: border-box;
-            background-color: #2d3844;
-            color: #435971;
-            border: 1px solid #435971;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            font-weight: 700;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .loginInput,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            height: 38px;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .login-elm,
-        .login-dialog .loginInput,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-        
-        .button {
-            display: inline-block;
-            margin: 0;
-            padding: 2px;
-            color: #929a9e;
-            background-color: #435971;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
-            cursor: pointer;
-            border: 0;
-            transition: background-color .2s cubic-bezier(.59, .43, .99, 1);
-        }
-        
-        .a-default,
-        a {
-            text-decoration: none;
-            color: #87a3bf;
-        }
-        
-        a {
-            background-color: transparent;
-            -webkit-text-decoration-skip: objects;
-        }
-        
-        user agent stylesheet a:-webkit-any-link {
-            color: -webkit-link;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        
-        .login-dialog {
-            box-sizing: border-box;
-            padding: 15px;
-            width: 320px;
-            font-size: 12px;
-        }
-        
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
-        }
-        
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
-        }
-        
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
-        }
-        
-        .rq {
-            color: #FF0000;
-            font-size: 10pt;
+        .toCreatePost {
+            background-color: blue;
+            width: 100px;
+            height: 30px;
         }
     </style>
 
@@ -370,44 +78,21 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <form action="/registration" method="POST">
-        <form>
-            <p>Sign up</p>
-            <p>Thank you for signing up to Forum!</p>
-            <p>We only need you to fill in some information, before your account is ready.</p>
-        </form>
         <p class="clearfix">
             <label for="login">Username</label>
-            <input type="text" name="username" id="login">
+            <input type="text" name="username" id="login" placeholder="Username">
+        </p>
+        <p class="clearfix">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password">
         </p>
         <p class="clearfix">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email">
+            <input type="text" name="email" id="email" placeholder="Email">
         </p>
         <p class="clearfix">
-            <label for="login">Password</label>
-            <input type="password" name="password" id="password">
-        </p>
-        <p class="clearfix">
-            <label for="login">Confirm Password</label>
-            <input type="password" name="password1" id="password1"></li>
-        </p>
-        <p class="rq">*Input Password and Submit [7 to 15 characters which contain only characters, numeric digits, underscore and first character must be a letter]</p>
-
-
-        <p class="clearfix">
-            <input type="submit" name="submit" value="Register" onclick="CheckPassword(document.form1.text1)">
+            <input type="submit" name="submit" value="Register">
         </p>
     </form>
-    <script>
-        function CheckPassword(inputtxt) {
-            var passw = /^[A-Za-z]\w{7,14}$/;
-            if (inputtxt.value.match(passw)) {
-                alert('Correct, try another...')
-                return true;
-            } else {
-                alert('Wrong...!')
-                return false;
-            }
-        }
-    </script>
+
 </body>
