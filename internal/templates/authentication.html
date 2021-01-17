@@ -3,244 +3,72 @@
 
 <head>
     <link href="css/site_styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Yusei+Magic&display=swap" rel="stylesheet">
     <style>
-        element.style {}
-        
-        .login-dialog {
-            box-sizing: border-box;
-            padding: 15px;
-            width: 320px;
-            font-size: 12px;
-        }
-        
-        .standard-box {
-            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .5);
-            background-color: #2d3844;
-        }
-        
-        user agent stylesheet div {
-            display: block;
-        }
-        
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
-        }
-        
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
-        }
-        
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
-        }
-        
-        element.style {}
-        
-        .fixed-overlay-popup-content {
-            position: fixed;
-            transform: translate(-50%, -50%);
-        }
-        
-        user agent stylesheet div {
-            display: block;
-        }
-        
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
-        }
-        
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
-        }
-        
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            font-weight: 700;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .loginInput,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            height: 38px;
-        }
-        
-        .login-dialog .back-button,
-        .login-dialog .login-button,
-        .login-dialog .login-elm,
-        .login-dialog .loginInput,
-        .login-dialog .recover-button,
-        .login-dialog .signup-button,
-        .login-dialog .steam-button {
-            width: 100%;
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-        
-        .button {
-            display: inline-block;
+        * {
             margin: 0;
-            padding: 2px;
-            color: #929a9e;
-            background-color: #435971;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
-            cursor: pointer;
-            border: 0;
-            transition: background-color .2s cubic-bezier(.59, .43, .99, 1);
+            padding: 0;
         }
         
-        [type=reset],
-        [type=submit],
-        button,
-        html [type=button] {
-            -webkit-appearance: button;
-        }
-        
-        button,
-        select {
-            text-transform: none;
-        }
-        
-        button,
-        input {
-            overflow: visible;
-        }
-        
-        button,
-        input,
-        optgroup,
-        select,
-        textarea {
-            font: inherit;
-            margin: 0;
-        }
-        
-        user agent stylesheet button {
-            appearance: button;
-            -webkit-writing-mode: horizontal-tb !important;
-            text-rendering: auto;
-            color: -internal-light-dark(black, white);
-            letter-spacing: normal;
-            word-spacing: normal;
-            text-transform: none;
-            text-indent: 0px;
-            text-shadow: none;
-            display: inline-block;
+        body {
             text-align: center;
-            align-items: flex-start;
-            cursor: default;
-            background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
-            box-sizing: border-box;
-            margin: 0em;
-            font: 400 13.3333px Arial;
-            padding: 1px 6px;
-            border-width: 2px;
-            border-style: outset;
-            border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-            border-image: initial;
+            text-decoration: none
         }
         
-        .login-dialog {
-            box-sizing: border-box;
-            padding: 15px;
-            width: 320px;
-            font-size: 12px;
+        .wrapper {
+            width: 1170px;
+            margin: 0 auto;
         }
         
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
+        header {
+            height: 100px;
+            background: #262626;
+            width: 100%;
+            z-index: 12;
+            position: fixed;
         }
         
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
+        .logo {
+            width: 30%;
+            float: left;
+            line-height: 100px;
         }
         
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
+        .logo a {
+            text-decoration: none;
+            font-size: 30px;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
         }
         
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
+        nav {
+            float: right;
+            line-height: 100px;
         }
         
-         ::selection {
-            background: #181b1f;
+        nav a {
+            text-decoration: none;
+            font-family: 'Acme', sans-serif;
+            letter-spacing: 4px;
+            font-size: 20px;
+            margin: 0 10px;
+            color: #fff;
         }
         
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
+        main {
+            background-color: #435a6b;
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            position: absolute;
+            top: 100px;
+            bottom: 100px;
+            min-height: 600px;
+            font-family: 'Acme', sans-serif;
+            padding: 20px;
         }
         
         .login-dialog .signup-button {
@@ -258,7 +86,7 @@
         .login-dialog .recover-button,
         .login-dialog .signup-button,
         .login-dialog .steam-button {
-            font-weight: 700;
+            font-weight: 600;
         }
         
         .login-dialog .back-button,
@@ -277,13 +105,20 @@
         .login-dialog .recover-button,
         .login-dialog .signup-button,
         .login-dialog .steam-button {
-            width: 100%;
+            width: 50%;
             margin-top: 10px;
             margin-bottom: 0;
         }
         
-        .button {
+        .login-dialog {
+            box-sizing: border-box;
+            padding: 15px;
+            font-size: 12px;
+        }
+        
+        main .button {
             display: inline-block;
+            font-family: 'Acme', sans-serif;
             margin: 0;
             padding: 2px;
             color: #929a9e;
@@ -294,82 +129,71 @@
             transition: background-color .2s cubic-bezier(.59, .43, .99, 1);
         }
         
-        .a-default,
-        a {
+        footer {
+            text-align: center;
             text-decoration: none;
-            color: #87a3bf;
-        }
-        
-        a {
-            background-color: transparent;
-            -webkit-text-decoration-skip: objects;
-        }
-        
-        user agent stylesheet a:-webkit-any-link {
-            color: -webkit-link;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        
-        .login-dialog {
-            box-sizing: border-box;
-            padding: 15px;
-            width: 320px;
-            font-size: 12px;
-        }
-        
-        body,
-        html {
-            min-height: 100%;
-            background-color: #000;
-            color: #929a9e;
-        }
-        
-        html {
-            font-family: Open Sans, sans-serif;
-            overflow-y: scroll;
-            height: 100%;
-            font-size: 12px;
-            line-height: 1.66667;
-        }
-        
-        html {
-            color: #222;
-            font-size: 1em;
-            line-height: 1.4;
-        }
-        
-        html {
-            font-family: sans-serif;
-            line-height: 1.15;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-        }
-        
-         ::selection {
-            background: #181b1f;
-        }
-        
-         ::selection {
-            background: #b3d4fc;
-            text-shadow: none;
+            font-size: 20px;
+            bottom: 0;
+            position: absolute;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+            height: 100px;
+            background: #262626;
+            width: 100%;
+            color: white;
+            font-style: 'Acme', sans-serif;
+            Padding-top: 35px;
         }
     </style>
 </head>
 
 <body>
-    <div class="login-dialog standard-box" id="loginpopup" data-login-url="/login">
-        <form action="/authentication" method="POST">
-            <form><input type="text" name="username" id="login" class="loginInput" required="required" placeholder="Username"><input type="password" name="password" id="password" class="loginInput" required="required" placeholder="Password">
-                <div class="login-elm clearfix"><span class="remember-me left">
-          <div class="labelled-checkbox"><label><input type="checkbox" name="autologin" class="loginCheckbox " checked="checked">Remember me</label></div>
-        <div class="g-recaptcha" id="login-recaptcha">
-            <div><iframe style="display: none;"></iframe></div>
+    <div class="box-area">
+        <header>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/">FORUM</a>
+                </div>
+                <nav>
+                    {{if .Authed}}<a href="write">create new post</a><span style="color: #fff;font-size: 26px">|</span>{{ end }} {{if not .Authed }}
+                    <a href="registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
+                    <a href="authentication">sign in</a> {{ end }} {{if .Authed}}
+                    <a href="logout">log out</a>
+                    <a href="name"></a>
+                    {{ end }}
+                </nav>
+            </div>
+        </header>
+    </div>
+    <main>
+        <div class="login-dialog standard-box" id="loginpopup" data-login-url="/login">
+            <form action="/authentication" method="POST">
+                <form><input type="text" name="username" id="login" class="loginInput" required="required" placeholder="Username"><input type="password" name="password" id="password" class="loginInput" required="required" placeholder="Password">
+                    <div class="login-elm clearfix"><span class="remember-me left">
+          <div class="labelled-checkbox"><label><input type="checkbox" name="autologin" class="loginCheckbox " checked="checked">Remember me</label>
+        </div>
         </div>
         <div class="login-error"></div>
         <button type="submit" class="login-button button" name="login">Login</button></form>
     <hr class="login-elm">
     <a href="/registration" class="signup-button button">Sign up</a></div></form>
+</main>
+<footer class="footer">
+        <div class="footer-top">
+            <p>Created by: </p>
+            <div class="socials">
+                <a href="https://github.com/SaidMaratov"><i class="fa fa-github"></i></a>
+                <a href="https://github.com/Kemalele"><i class="fa fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                All Right reserved by &copy;conceptial 2021
+            </p>
+        </div>
+    </footer>
+    
             
      
 </body>
