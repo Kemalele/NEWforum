@@ -101,7 +101,7 @@ func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) 
 	post.Id = services.GenerateId()
 	post.Description = r.FormValue("description")
 	t := time.Now()
-	post.PostDate = t.Format(time.RFC1123)
+	post.PostDate = t.Format("2006-01-02 15:04")
 
 	username, ok := services.Authenticated(r, &Cache)
 	if !ok {

@@ -54,8 +54,9 @@ func AllPosts() ([]PostDTO, error) {
 			return nil, err
 		}
 
-		postsLikes = append(postsLikes, PostDTO{Post: post, Categories: categories, Likes: likes, Dislikes: dislikes})
+		postsLikes = append([]PostDTO{PostDTO{Post: post, Categories: categories, Likes: likes, Dislikes: dislikes}}, postsLikes...)
 	}
+
 	return postsLikes, nil
 }
 
