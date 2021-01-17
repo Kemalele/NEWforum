@@ -4,174 +4,184 @@
 
     <link href="css/site_styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Yusei+Magic&display=swap" rel="stylesheet">
     <style>
-        div {
+        * {
             margin: 0;
             padding: 0;
-            outline: 0;
         }
         
-        textarea {
-            resize: none;
+        body {
+            text-align: center
         }
         
-        .header {
+        .wrapper {
+            width: 1170px;
+            margin: 0 auto;
+        }
+        
+        header {
             height: 100px;
-            background-color: #999;
+            background: #262626;
+            width: 100%;
+            z-index: 12;
+            position: fixed;
         }
         
-        .header p {
-            position: absolute;
-            font-size: 48px;
-            margin-left: 20%;
-            margin-top: 20px;
+        .logo {
+            width: 30%;
+            float: left;
+            line-height: 100px;
         }
         
-        .auth {
-            position: absolute;
-            top: 20px;
-            right: 10px;
+        .logo a {
+            text-decoration: none;
+            font-size: 30px;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
         }
         
-        .tagPost p {
-            font-size: 26px;
+        nav {
+            float: right;
+            line-height: 100px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            font-family: 'Acme', sans-serif;
+            letter-spacing: 4px;
+            font-size: 20px;
+            margin: 0 10px;
+            color: #fff;
+        }
+        
+        main {
+            background-color: #435a6b;
+            display: block;
             text-align: center;
-        }
-        
-        .Posts {
-            background-color: darkcyan;
             margin-left: auto;
             margin-right: auto;
-            width: 60%;
+            width: 100%;
+            position: absolute;
+            top: 100px;
+            bottom: 100px;
             min-height: 600px;
+            font-family: 'Acme', sans-serif;
             padding: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            bottom: 0;
+            position: absolute;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+            height: 100px;
+            background: #262626;
+            width: 100%;
+            color: white;
+            font-style: 'Acme', sans-serif;
+            Padding-top: 35px;
         }
         
         .post {
-            background-color: skyblue;
-            display: block;
+            background-color: #b8bfc2;
+            margin-left: 20%;
+            margin-right: 20%;
+            text-decoration: none;
             margin-top: 40px;
+            color: black;
             padding: 20px;
-        }
-        
-        .createPost {
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 100px;
-            width: 100px;
-            height: 30px;
-        }
-        
-        .toCreatePost {
-            background-color: blue;
-            width: 100px;
-            height: 30px;
-        }
-        .auth {
-            position: absolute;
-            top: 20px;
-            right: 100px;
-            width: 100px;
-            height: 30px;
-            display: inline-block;
-            margin: 15px 25px;
-            outline: none;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 400;
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-            font-size: 1.35em;
-            font-family: 'Lato', Arial, sans-serif;
-        }
-
-                
-        .account {
-            position: absolute;
-            top: 20px;
-            right: 700px;
-            width: 100px;
-            height: 30px;
-            display: inline-block;
-            margin: 15px 25px;
-            outline: none;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 400;
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-            font-size: 1.35em;
-            font-family: 'Lato', Arial, sans-serif;
+            font-family: 'Acme', sans-serif;
+            outline: none !important;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <p>FORUM</p>
-        <div class="auth">
-            {{if not .Authed }}
-            <a href="/registration">Registation</a><br>
-            <a href="/authentication">Auth</a> 
-            {{ end }}
-        </div>
-
-        <div class="account">
-            {{if .Authed}}
-            <a href="/logout">Logout</a>
-            <a href="/name"></a>
-            {{ end }}
-        </div>
-
+    <div class="box-area">
+        <header>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/">FORUM</a>
+                </div>
+                <nav>
+                    {{if .Authed}}
+                    <a href="/write">create new post</a><span style="color: #fff;font-size: 26px">|</span> {{ end }} {{if not .Authed }}
+                    <a href="/registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
+                    <a href="/authentication">sign in</a> {{ end }} {{if .Authed}}
+                    <a href="logout">log out</a>
+                    <a href="name"></a>
+                    {{ end }}
+                </nav>
+            </div>
+        </header>
     </div>
-    <div>
-        <h1>{{ .Post.Title}}</h1>
-        <h4>{{ .Post.Description}}</h4>
-    </div>
+    <main>
+        <div class="post"></div>
+        <article>
+            <h1>{{ .Post.Title}}</h1>
+            <br><br>
+            <h4>{{ .Post.Description}}</h4>
+        </article>
+        <br><br>
 
-    <div class="comments">
-        Comments:<br><br> 
-        {{ range $commentLikes := .Comments }} 
-        {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
-        <button onclick="rate('like', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $commentLikes.Likes }}</button>
-        <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button>
-        {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
-        <br>
-        <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
-            <input type="hidden" name="commentId" value="{{ $commentLikes.Comment.Id }}">
-            <input type="submit" value="delete">
+        <div class="comments">
+            Comments:<br><br> {{ range $commentLikes := .Comments }} {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
+            <button onclick="rate('like', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $commentLikes.Likes }}</button>
+            <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button> {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
+            <br>
+            <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
+                <input type="hidden" name="commentId" value="{{ $commentLikes.Comment.Id }}">
+                <input type="submit" value="delete">
+            </form>
+            {{ else }}
+            <br><br> {{ end }} {{ end }}
+        </div>
+        {{ if .Authed}}
+        <form action="/post/{{ .Post.Id }}/_method=POST" method="POST">
+            Comment:<br>
+            <input type="text" name="text"><br>
+            <input type="submit" value="Add comment">
         </form>
-        {{ else }}
-        <br><br> {{ end }} 
         {{ end }}
-    </div>
-
-    {{ if .Authed}}
-    <form action="/post/{{ .Post.Id }}/_method=POST" method="POST">
-        Comment:<br>
-        <input type="text" name="text"><br>
-        <input type="submit" value="Add comment">
-    </form>
-    {{ end }}
+    </main>
+    <footer class="footer">
+        <div class="footer-top">
+            <p>Created by: </p>
+            <div class="socials">
+                <a href="https://github.com/SaidMaratov"><i class="fa fa-github"></i></a>
+                <a href="https://github.com/Kemalele"><i class="fa fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                All Right reserved by &copy;conceptial 2021
+            </p>
+        </div>
+    </footer>
 </body>
 <script>
     function rate(action, target, targetId, userId, authed) {
         if (!authed) {
-            console.log("idi nahuy")
+            console.log("isnt authorized")
             return
         }
 
         let resp = {
-            action  : action,
-            target : target,
-            targetId : targetId,
-            userId : userId,
+            action: action,
+            target: target,
+            targetId: targetId,
+            userId: userId,
         }
-        
+
         const Http = new XMLHttpRequest()
         const url = '/rate'
         Http.open('POST', url)
@@ -185,4 +195,5 @@
 
     }
 </script>
+
 </html>

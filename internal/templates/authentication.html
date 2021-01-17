@@ -3,53 +3,184 @@
 
 <head>
     <link href="css/site_styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Yusei+Magic&display=swap" rel="stylesheet">
     <style>
-        div {
+        * {
             margin: 0;
             padding: 0;
-            outline: 0;
         }
         
-        textarea {
-            resize: none;
+        body {
+            text-align: center;
+            text-decoration: none
         }
         
-        .header {
+        .wrapper {
+            width: 1170px;
+            margin: 0 auto;
+        }
+        
+        header {
             height: 100px;
-            background-color: #999;
+            background: #262626;
+            width: 100%;
+            z-index: 12;
+            position: fixed;
         }
         
-        .header p {
-            position: absolute;
-            font-size: 48px;
-            margin-left: 20%;
-            margin-top: 20px;
+        .logo {
+            width: 30%;
+            float: left;
+            line-height: 100px;
         }
         
-        .auth {
+        .logo a {
+            text-decoration: none;
+            font-size: 30px;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+        }
+        
+        nav {
+            float: right;
+            line-height: 100px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            font-family: 'Acme', sans-serif;
+            letter-spacing: 4px;
+            font-size: 20px;
+            margin: 0 10px;
+            color: #fff;
+        }
+        
+        main {
+            background-color: #435a6b;
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
             position: absolute;
-            top: 20px;
-            right: 10px;
+            top: 100px;
+            bottom: 100px;
+            min-height: 600px;
+            font-family: 'Acme', sans-serif;
+            padding: 20px;
+        }
+        
+        .login-dialog .signup-button {
+            line-height: 32px;
+            text-align: center;
+            vertical-align: middle;
+            box-sizing: border-box;
+            background-color: #2d3844;
+            color: #435971;
+            border: 1px solid #435971;
+        }
+        
+        .login-dialog .login-button,
+        .login-dialog .signup-button {
+            font-weight: 600;
+        }
+        
+        .login-dialog .login-button,
+        .login-dialog .loginInput,
+        .login-dialog .signup-button {
+            height: 38px;
+        }
+        
+        .login-dialog .login-button,
+        .login-dialog .loginInput,
+        .login-dialog .signup-button {
+            width: 50%;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        
+        .login-dialog {
+            box-sizing: border-box;
+            padding: 15px;
+            font-size: 12px;
+        }
+        
+        main .button {
+            display: inline-block;
+            font-family: 'Acme', sans-serif;
+            margin: 0;
+            padding: 2px;
+            color: #929a9e;
+            background-color: #2d3844;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+            cursor: pointer;
+            border: 0;
+            transition: background-color .2s cubic-bezier(.59, .43, .99, 1);
+        }
+        
+        footer {
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            bottom: 0;
+            position: absolute;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+            height: 100px;
+            background: #262626;
+            width: 100%;
+            color: white;
+            font-style: 'Acme', sans-serif;
+            Padding-top: 35px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <p>FORUM</p>
-
+    <div class="box-area">
+        <header>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/">FORUM</a>
+                </div>
+                <nav>
+                    {{if .Authed}}<a href="write">create new post</a><span style="color: #fff;font-size: 26px">|</span>{{ end }} {{if not .Authed }}
+                    <a href="registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
+                    <a href="authentication">sign in</a> {{ end }} {{if .Authed}}
+                    <a href="logout">log out</a>
+                    <a href="name"></a>
+                    {{ end }}
+                </nav>
+            </div>
+        </header>
     </div>
-    <form action="/authentication" method="POST">
-        <p class="clearfix">
-            <label for="login">Username</label>
-            <input type="text" name="username" id="login" placeholder="Username">
-        </p>
-        <p class="clearfix">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Password">
-        </p>
-        <p class="clearfix">
-            <input type="submit" name="submit" value="Enter">
-        </p>
-    </form>
+    <main>
+        <div class="login-dialog standard-box" id="loginpopup" data-login-url="/login">
+            <form action="/authentication" method="POST">
+                <form><input type="text" name="username" id="login" class="loginInput" required="required" placeholder="Username"><input type="password" name="password" id="password" class="loginInput" required="required" placeholder="Password">
+                    <div class="login-elm clearfix"><span class="remember-me left">
+          <div class="labelled-checkbox"><label><input type="checkbox" name="autologin" class="loginCheckbox " checked="checked">Remember me</label>
+        </div>
+        </div>
+        <div class="login-error"></div>
+        <button type="submit" class="login-button button" name="login">Login</button></form>
+    
+    <a href="/registration" class="signup-button button">Sign up</a></div></form>
+</main>
+<footer class="footer">
+        <div class="footer-top">
+            <p>Created by: </p>
+            <div class="socials">
+                <a href="https://github.com/SaidMaratov"><i class="fa fa-github"></i></a>
+                <a href="https://github.com/Kemalele"><i class="fa fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                All Right reserved by &copy;conceptial 2021
+            </p>
+        </div>
+    </footer>
 </body>

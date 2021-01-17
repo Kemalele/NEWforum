@@ -75,8 +75,8 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 		return
 	}
 
-	_, ok := services.Authenticated(r, &Cache)
-	if !ok {
+	_, authed := services.Authenticated(r, &Cache)
+	if !authed {
 		http.Redirect(w, r, "/authentication", http.StatusUnauthorized)
 		return
 	}
@@ -85,8 +85,12 @@ func WritePost(w http.ResponseWriter, r *http.Request, params url.Values) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	t.ExecuteTemplate(w, "write", nil)
+	response := struct {
+		Authed bool
+	}{
+		Authed: authed,
+	}
+	t.ExecuteTemplate(w, "write", response)
 }
 
 func SavePostHandler(w http.ResponseWriter, r *http.Request, params url.Values) {

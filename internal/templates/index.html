@@ -3,56 +3,68 @@
 
 <head>
     <link href="css/site_styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Yusei+Magic&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
         }
         
-        textarea {
-            resize: none;
+        body {
+            text-align: left;
+            text-decoration: none
         }
         
-        .header {
-            height: 150px;
-            background-color: #435a6b;
+        .wrapper {
+            width: 1170px;
+            margin: 0 auto;
         }
         
-        .header p {
-            position: absolute;
-            font-size: 4em;
-            line-height: 1.3;
-            font-weight: 300;
-            margin-left: 20%;
-            margin-top: 20px;
-            font-family: 'Lato', Arial, sans-serif;
-            color: #fff;
+        header {
+            height: 100px;
+            background: #262626;
+            width: 100%;
+            z-index: 12;
+            position: fixed;
         }
         
-        .Filters {
-            height: 150px;
-            margin-left: 20%;
-            background-color: #fff;
+        .logo {
+            width: 30%;
+            float: left;
+            line-height: 100px;
         }
         
-        .account {
-            position: absolute;
-            top: 20px;
-            right: 700px;
-            width: 100px;
-            height: 30px;
-            display: inline-block;
-            margin: 15px 25px;
-            outline: none;
-            color: #fff;
+        .logo a {
             text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 400;
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-            font-size: 1.35em;
-            font-family: 'Lato', Arial, sans-serif;
+            font-size: 30px;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+        }
+        
+        nav {
+            float: right;
+            line-height: 100px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            font-family: 'Acme', sans-serif;
+            letter-spacing: 4px;
+            font-size: 20px;
+            margin: 0 10px;
+            color: #fff;
+        }
+        
+        .filter-area {
+            width: 100%;
+            height: 100px;
+            text-align: center;
+            position: absolute;
+            top: 100px;
+            background-color: #929a9e;
+            font-family: 'Acme', sans-serif;
         }
         
         .tagPost p {
@@ -60,96 +72,113 @@
             text-align: left;
             color: whitesmoke;
             margin-left: 20%;
-            font-family: 'Lato', Arial, sans-serif;
+            font-family: 'Acme', sans-serif;
+            text-decoration: none;
         }
         
-        .Posts {
+        .posts {
             background-color: #435a6b;
+            text-decoration: none;
+            display: block;
             margin-left: auto;
             margin-right: auto;
             width: 100%;
+            position: absolute;
+            top: 170px;
             min-height: 600px;
             padding: 20px;
         }
         
         .post {
-            background-color: #fff;
-            display: block;
+            background-color: #b8bfc2;
             margin-left: 20%;
             margin-right: 20%;
+            text-decoration: none;
             margin-top: 40px;
+            color: black;
             padding: 20px;
+            font-family: 'Acme', sans-serif;
+            outline: none !important;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
         }
         
-        .auth {
-            position: absolute;
-            top: 20px;
-            right: 100px;
-            width: 100px;
-            height: 30px;
-            display: inline-block;
-            margin: 15px 25px;
-            outline: none;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 400;
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-            font-size: 1.35em;
-            font-family: 'Lato', Arial, sans-serif;
+        .menu {
+            width: 25%;
         }
         
-        .createPost {
-            top: 20px;
-            right: 50%;
-            position: absolute;
-            width: 100px;
-            height: 30px;
-            display: inline-block;
-            margin: 15px 25px;
-            outline: none;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 400;
-            text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-            font-size: 1.35em;
-            font-family: 'Lato', Arial, sans-serif;
+        .menu li {
+            padding: 8px;
+            margin-bottom: 8px;
+            background-color: #e84545;
+            color: #ffffff;
+        }
+        
+        .menu li:hover {
+            background-color: #903749;
+        }
+        
+        .menu ul {
+            display: table-row;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .content {
+            display: table-cell;
+            width: 70%
         }
         
         .toCreatePost {
             background-color: blue;
+            color: black;
             width: 100px;
             height: 30px;
+            text-decoration: none;
+        }
+        
+        footer {
+            text-decoration: none;
+            text-align: center;
+            font-size: 20px;
+            bottom: 0;
+            Padding-top: 35px;
+            position: relative;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+            height: 100px;
+            background: #262626;
+            width: 100%;
+            color: white;
+            font-style: 'Acme', sans-serif;
+            margin: 30px 0 -20px -20px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <p>FORUM</p>
-        <div class="createPost">
-            <a href="write">CreateNewPost</a>
-        </div>
-        <div class="auth">
-            {{if not .Authed }}
-            <a href="registration">Registation</a><br>
-            <a href="authentication">Auth</a> 
-            {{ end }}
-        </div>
+    <div class="box-area">
+        <header>
+            <div class="wrapper">
+                <div class="logo">
+                    <a href="/">FORUM</a>
+                </div>
+                <nav>
+                    {{if .Authed}}<a href="write">create new post</a><span style="color: #fff;font-size: 26px">|</span>{{ end }} {{if not .Authed }}
+                    <a href="registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
+                    <a href="authentication">sign in</a> {{ end }} {{if .Authed}}
+                    <a href="logout">log out</a>
+                    <a href="name"></a>
 
-
-        <div class="account">
-            {{if .Authed}}
-            <a href="logout">Logout</a>
-            <a href="name"></a>
-            {{ end }}
-        </div>
-
+                    {{ end }}
+                </nav>
+            </div>
+        </header>
     </div>
-    <div class="Filters">
+    <div class="filter-area">
         <h3>Filter by: </h3>
         <form action="/?sortBy=" method="GET">
             <select name="sortBy">
@@ -169,51 +198,60 @@
         </form>
     </div>
 
-    <div class="Posts">
+    <div class="posts">
         <div class="tagPost">
             <p>Posts</p>
         </div>
         {{ range $postLike := .Posts }}
         <div class="post">
             <div class="row">
-                <div class="col-xs-8">
-                    <a href="/post/{{ $postLike.Post.Id }}">
-                        <h1>{{ $postLike.Post.Title }}</h1>
-                    </a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.Description }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.PostDate }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.User.Username}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
-                    <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
-                </div>
-            </div>
-            <div class="row">
                 {{ range $category := $postLike.Categories }}
-                <div class="col-xs-8">
-                    {{ $category.Name}}
+                <div class="column menu">
+                    <ul>
+                        <li>{{ $category.Name}}</li>
+                    </ul>
                 </div>
+
                 {{ end }}
+            </div>
+
+            <div class="column content">
+                <a>posted by: </a><b>{{ $postLike.Post.User.Username}}</b>
+                <br>
+                <a>in <b>{{ $postLike.Post.PostDate }}</b></a>
+                <a href="/post/{{ $postLike.Post.Id }}">
+                    <h1>{{ $postLike.Post.Title }}</h1>
+                </a>
+                <br>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
+                        <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
+                    </div>
+                </div>
             </div>
         </div>
         {{ end }}
+
+
+        <footer class="footer">
+            <div class="footer-top">
+                <p>Created by: </p>
+                <div class="socials">
+                    <a href="https://github.com/SaidMaratov"><i class="fa fa-github"></i></a>
+                    <a href="https://github.com/Kemalele"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>
+                    All Right reserved by &copy;conceptial 2021
+                </p>
+            </div>
+        </footer>
+
     </div>
-    </div>
+
+
 
     <script>
         function rate(action, target, targetId, userId, authed) {
