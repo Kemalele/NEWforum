@@ -4,24 +4,15 @@
 
     <link href="css/site_styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Yusei+Magic&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
         }
         
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Acme', sans-serif;
-            margin: 0;
-            display: grid;
-            font-size: 14px;
+            text-align: center
         }
         
         .wrapper {
@@ -65,11 +56,33 @@
             color: #fff;
         }
         
+        main {
+            background-color: #435a6b;
+            display: block;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            position: absolute;
+            top: 100px;
+            bottom: 100px;
+            min-height: 600px;
+            font-family: 'Acme', sans-serif;
+            padding: 20px;
+        }
+        
         footer {
-            height: 100px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            bottom: 0;
+            position: absolute;
+            font-family: 'Acme', sans-serif;
+            color: #fff;
+            letter-spacing: 5px;
+            height: 150px;
             background: #262626;
             width: 100%;
-            position: relative;
             color: white;
             font-style: 'Acme', sans-serif;
         }
@@ -97,30 +110,31 @@
     <main>
         <article>
             <h1>{{ .Post.Title}}</h1>
+            <br><br>
             <h4>{{ .Post.Description}}</h4>
         </article>
-    </main>
+        <br><br>
 
-    <div class="comments">
-        Comments:<br><br> {{ range $commentLikes := .Comments }} {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
-        <button onclick="rate('like', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $commentLikes.Likes }}</button>
-        <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button> {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
-        <br>
-        <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
-            <input type="hidden" name="commentId" value="{{ $commentLikes.Comment.Id }}">
-            <input type="submit" value="delete">
+        <div class="comments">
+            Comments:<br><br> {{ range $commentLikes := .Comments }} {{ $commentLikes.Comment.User.Username }} : {{ $commentLikes.Comment.Description }}
+            <button onclick="rate('like', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $commentLikes.Likes }}</button>
+            <button onclick="rate('dislike', 'comment', {{ $commentLikes.Comment.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $commentLikes.Dislikes}}</button> {{ if eq $.User.Id $commentLikes.Comment.User.Id}}
+            <br>
+            <form action="/post/{{ $.Post.Id }}/_method=DELETE" method="POST">
+                <input type="hidden" name="commentId" value="{{ $commentLikes.Comment.Id }}">
+                <input type="submit" value="delete">
+            </form>
+            {{ else }}
+            <br><br> {{ end }} {{ end }}
+        </div>
+        {{ if .Authed}}
+        <form action="/post/{{ .Post.Id }}/_method=POST" method="POST">
+            Comment:<br>
+            <input type="text" name="text"><br>
+            <input type="submit" value="Add comment">
         </form>
-        {{ else }}
-        <br><br> {{ end }} {{ end }}
-    </div>
-
-    {{ if .Authed}}
-    <form action="/post/{{ .Post.Id }}/_method=POST" method="POST">
-        Comment:<br>
-        <input type="text" name="text"><br>
-        <input type="submit" value="Add comment">
-    </form>
-    {{ end }}
+        {{ end }}
+    </main>
     <footer class="footer">
         <div class="footer-top">
             <p>Created by: </p>

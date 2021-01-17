@@ -59,7 +59,7 @@
         .filter-area {
             width: 100%;
             height: 100px;
-            position: fixed;
+            position: absolute;
             top: 100px;
             background-color: #929a9e;
             font-family: 'Acme', sans-serif;
@@ -75,22 +75,25 @@
         
         .posts {
             background-color: #435a6b;
+            display: block;
             margin-left: auto;
             margin-right: auto;
             width: 100%;
+            position: absolute;
+            top: 170px;
             min-height: 600px;
             padding: 20px;
         }
         
         .post {
             background-color: #fff;
-            display: block;
             margin-left: 20%;
             margin-right: 20%;
             margin-top: 40px;
             color: black;
             padding: 20px;
             font-family: 'Acme', sans-serif;
+            outline: none !important;
         }
         
         .toCreatePost {
@@ -103,6 +106,8 @@
         footer {
             text-decoration: none;
             font-size: 20px;
+            bottom: 0;
+            position: absolute;
             font-family: 'Acme', sans-serif;
             color: #fff;
             letter-spacing: 5px;
@@ -160,42 +165,42 @@
         {{ range $postLike := .Posts }}
         <div class="p" href="/post/{{ $postLike.Post.Id }}"></div>
         <div class="post">
-            <div class="row">
-                <div class="col-xs-8">
-                    <a href="/post/{{ $postLike.Post.Id }}">
+            <a href="/post/{{ $postLike.Post.Id }}">
+                <div class="row">
+                    <div class="col-xs-8">
                         <h1>{{ $postLike.Post.Title }}</h1>
-                    </a>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.Description }}
+                <div class="row">
+                    <div class="col-xs-8">
+                        {{ $postLike.Post.Description }}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.PostDate }}
+                <div class="row">
+                    <div class="col-xs-8">
+                        {{ $postLike.Post.PostDate }}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    {{ $postLike.Post.User.Username}}
+                <div class="row">
+                    <div class="col-xs-8">
+                        {{ $postLike.Post.User.Username}}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
-                    <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>
+                        <button onclick="rate('dislike', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id}}, {{ $.Authed }})" class="fa fa-thumbs-down">{{ $postLike.Dislikes }}</button>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                {{ range $category := $postLike.Categories }}
-                <div class="col-xs-8">
-                    {{ $category.Name}}
+                <div class="row">
+                    {{ range $category := $postLike.Categories }}
+                    <div class="col-xs-8">
+                        {{ $category.Name}}
+                    </div>
+                    {{ end }}
                 </div>
-                {{ end }}
-            </div>
         </div>
+        </a>
         {{ end }}
     </div>
     <footer class="footer">
