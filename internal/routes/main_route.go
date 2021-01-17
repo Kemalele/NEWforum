@@ -29,7 +29,6 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 	}
 
 	username, authed := services.Authenticated(r, &Cache)
-
 	user, err := models.UserByName(username)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -63,14 +62,13 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 
 		posts, err := models.SortedPosts(sortBy, user)
 		if err != nil {
-			fmt.Println("main_route : 58")
 			fmt.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 		response.Posts = posts
 
-	default:
+	case "":
 		posts, err := models.AllPosts()
 		if err != nil {
 			fmt.Println(err.Error())
@@ -78,7 +76,10 @@ func GetMain(w http.ResponseWriter, r *http.Request, params url.Values) {
 			return
 		}
 		response.Posts = posts
+	default:
+		w.WriteHeader(http.StatusBadRequest)
 	}
+
 	err = t.Execute(w, response)
 	if err != nil {
 		fmt.Println(err.Error())
