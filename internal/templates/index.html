@@ -149,7 +149,7 @@
             font-family: 'Acme', sans-serif;
             color: #fff;
             letter-spacing: 5px;
-            height: 150px;
+            height: 100px;
             background: #262626;
             width: 100%;
             color: white;
@@ -172,6 +172,7 @@
                     <a href="authentication">sign in</a> {{ end }} {{if .Authed}}
                     <a href="logout">log out</a>
                     <a href="name"></a>
+
                     {{ end }}
                 </nav>
             </div>
@@ -210,16 +211,18 @@
                         <li>{{ $category.Name}}</li>
                     </ul>
                 </div>
+
                 {{ end }}
             </div>
 
             <div class="column content">
                 <a>posted by: </a><b>{{ $postLike.Post.User.Username}}</b>
+                <br>
                 <a>in <b>{{ $postLike.Post.PostDate }}</b></a>
-                <h1>{{ $postLike.Post.Title }}</h1>
-
-
-
+                <a href="/post/{{ $postLike.Post.Id }}">
+                    <h1>{{ $postLike.Post.Title }}</h1>
+                </a>
+                <br>
                 <div class="row">
                     <div class="col-xs-8">
                         <button onclick="rate('like', 'post', {{ $postLike.Post.Id }}, {{ $.User.Id }}, {{ $.Authed }} )" class="fa fa-thumbs-up">{{ $postLike.Likes }}</button>

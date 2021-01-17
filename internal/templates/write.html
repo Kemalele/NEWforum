@@ -92,6 +92,15 @@
             padding: 20px;
         }
         
+        textarea {
+            width: 60%;
+            /* Ширина поля в процентах */
+            height: 200px;
+            /* Высота поля в пикселах */
+            resize: none;
+            /* Запрещаем изменять размер */
+        }
+        
         .createPost {
             position: absolute;
             margin-left: auto;
@@ -99,6 +108,54 @@
             top: 100px;
             width: 100px;
             height: 30px;
+        }
+        
+        .login-dialog .signup-button {
+            line-height: 32px;
+            text-align: center;
+            vertical-align: middle;
+            box-sizing: border-box;
+            background-color: #2d3844;
+            color: #435971;
+            border: 1px solid #435971;
+        }
+        
+        .login-dialog .login-button,
+        .login-dialog .signup-button {
+            font-weight: 600;
+        }
+        
+        .login-dialog .login-button,
+        .login-dialog .loginInput,
+        .login-dialog .signup-button {
+            height: 38px;
+        }
+        
+        .login-dialog .login-button,
+        .login-dialog .loginInput,
+        .login-dialog .signup-button {
+            width: 50%;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        
+        .login-dialog {
+            box-sizing: border-box;
+            padding: 15px;
+            font-size: 12px;
+        }
+        
+        main .button {
+            display: inline-block;
+            font-family: 'Acme', sans-serif;
+            margin: 0;
+            padding: 2px;
+            color: #929a9e;
+            background-color: #2d3844;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .1);
+            cursor: pointer;
+            border: 0;
+            transition: background-color .2s cubic-bezier(.59, .43, .99, 1);
         }
         
         footer {
@@ -129,12 +186,11 @@
                     <a href="/">FORUM</a>
                 </div>
                 <nav>
-                    {{if .Authed}}<a href="write">create new post</a><span style="color: #fff;font-size: 26px">|</span>{{ end }} {{if not .Authed }}
-                    <a href="registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
-                    <a href="authentication">sign in</a> {{ end }} {{if .Authed}}
+                    {{if .Authed}}<a href="write">create new post</a><span style="color: #fff;font-size: 26px">|</span>
                     <a href="logout">log out</a>
-                    <a href="name"></a>
-                    {{ end }}
+                    <a href="name"></a>{{ end }} {{if not .Authed }}
+                    <a href="registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
+                    <a href="authentication">sign in</a> {{ end }}
                 </nav>
             </div>
         </header>
@@ -147,18 +203,22 @@
                 <input type="text" class="form-control" id="theme" name="theme" />
             </div>
             <div class="form-group">
+                <br>
                 <label>Content</label>
                 <div style="overflow-wrap: break-word;white-space: pre-line;">
                 </div>
                 <textarea id="description" name="description"></textarea>
             </div>
+            <br>
             <input type="checkbox" name="standard" value="standard" />
             <td>Standard</td>
             <input type="checkbox" name="shadow" value="shadow" />
             <td>Shadow</td>
             <input type="checkbox" name="thinkertoy" value="thinkertoy" />
             <td>Thinkertoy</td>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <br>
+            <br>
+            <button type="submit" class="login-button button" name="login">Submit</button>
         </form>
     </main>
     <footer class="footer">

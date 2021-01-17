@@ -80,12 +80,27 @@
             font-family: 'Acme', sans-serif;
             color: #fff;
             letter-spacing: 5px;
-            height: 150px;
+            height: 100px;
             background: #262626;
             width: 100%;
             color: white;
             font-style: 'Acme', sans-serif;
             Padding-top: 35px;
+        }
+        
+        .post {
+            background-color: #b8bfc2;
+            margin-left: 20%;
+            margin-right: 20%;
+            text-decoration: none;
+            margin-top: 40px;
+            color: black;
+            padding: 20px;
+            font-family: 'Acme', sans-serif;
+            outline: none !important;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -98,9 +113,10 @@
                     <a href="/">FORUM</a>
                 </div>
                 <nav>
-                    {{if .Authed}}<a href="write">create new post</a><span style="color: #fff;font-size: 26px">|</span>{{ end }} {{if not .Authed }}
-                    <a href="registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
-                    <a href="authentication">sign in</a> {{ end }} {{if .Authed}}
+                    {{if .Authed}}
+                    <a href="/write">create new post</a><span style="color: #fff;font-size: 26px">|</span> {{ end }} {{if not .Authed }}
+                    <a href="/registration">sign up</a><span style="color: #fff;font-size: 26px">|</span>
+                    <a href="/authentication">sign in</a> {{ end }} {{if .Authed}}
                     <a href="logout">log out</a>
                     <a href="name"></a>
                     {{ end }}
@@ -109,6 +125,7 @@
         </header>
     </div>
     <main>
+        <div class="post"></div>
         <article>
             <h1>{{ .Post.Title}}</h1>
             <br><br>
